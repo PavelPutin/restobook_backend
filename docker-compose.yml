@@ -8,9 +8,21 @@ volumes:
   restobook-pgadmin-servers:
 
 services:
+  server:
+    build:
+      context: .
+      target: development
+    ports:
+      - 8081:8080
+    depends_on:
+      - restobook-db
+    environment:
+      POSTGRES_URL: jdbc:postgresql://restobook-db:5432/${POSTGRES_DB}
+
   restobook-db:
     image: postgres:16.2
     environment:
+      POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
@@ -25,8 +37,8 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${PG_ROOT_USER}'" ]
       interval: 5s
-      timeout: 3s
-      retries: 3
+      timeout: 5s
+      retries: 5
 
   pgadmin:
     image: elestio/pgadmin:REL-8_3
