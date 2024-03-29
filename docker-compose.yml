@@ -14,9 +14,9 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
-      - my-net
+      - restobook-net
     volumes:
-      - my-data:/var/lib/postgresql/data
+      - restobook-data:/var/lib/postgresql/data
     restart: unless-stopped
     ports:
       - 5432:5432
@@ -34,11 +34,11 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     networks:
-      - my-net
+      - restobook-net
     restart: unless-stopped
     ports:
       - 8080:80
     volumes:
-      - my-servers:/pgadmin4/servers.json
+      - restobook-pgadmin-servers:/pgadmin4/servers.json
     depends_on:
-      - my-db
+      - restobook-db

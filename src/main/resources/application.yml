@@ -1,0 +1,14 @@
+server.port: 8081
+spring:
+  application.name: restobook_backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/restobook
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        jdbc.lob.non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
