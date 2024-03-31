@@ -6,8 +6,47 @@ networks:
 volumes:
   restobook-data:
   restobook-pgadmin-servers:
+  logs:
+  certbot-etc:
+  certbot-var:
+  web-root:
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /root/restobook_backend/dhparam/
+      o: bind
 
 services:
+  nginx:
+    container_name: nginx
+    image: nginx:1.25
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - server
+    volumes:
+      - dhparam:/etc/ssl/certs
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - web-root:/var/www/html
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    networks:
+      - restobook-net
+
+  certbot:
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email hagoga.pr@gmail.com --agree-tos --no-eff-email --force-renewal -d ${DNS_NAME} -d www.${DNS_NAME}
+
   server:
     build:
       context: .
@@ -23,6 +62,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - logs:/logs
 
   restobook-db:
     image: postgres:16.2
