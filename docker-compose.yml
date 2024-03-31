@@ -83,7 +83,7 @@ services:
     expose:
       - 5432
     healthcheck:
-      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${PG_ROOT_USER}'" ]
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_USER}'" ]
       interval: 5s
       timeout: 5s
       retries: 5
