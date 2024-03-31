@@ -2,6 +2,7 @@ version: '3.9'
 
 networks:
   restobook-net:
+    driver: bridge
 
 volumes:
   restobook-data:
@@ -14,7 +15,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /root/restobook_backend/dhparam/
+      device: /home/root/restobook_backend/dhparam/
       o: bind
 
 services:
@@ -25,14 +26,12 @@ services:
     ports:
       - 80:80
       - 443:443
-    depends_on:
-      - server
     volumes:
-      - dhparam:/etc/ssl/certs
       - ./nginx/conf.d:/etc/nginx/conf.d
       - web-root:/var/www/html
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
     networks:
       - restobook-net
 
@@ -45,8 +44,7 @@ services:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
       - web-root:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email hagoga.pr@gmail.com --agree-tos --no-eff-email --force-renewal -d ${DNS_NAME} -d www.${DNS_NAME}
-
+    command: certonly --webroot --webroot-path=/var/www/html --email pavelputin2003@yandex.ru --agree-tos --no-eff-email --force-renewal -d 2778989-ta65313.twc1.net -d www.2778989-ta65313.twc1.net
   server:
     build:
       context: .
@@ -57,6 +55,7 @@ services:
       - "8181:8181"
     depends_on:
       - restobook-db
+      - nginx
     environment:
       POSTGRES_HOSTNAME: restobook-db
       POSTGRES_DB: ${POSTGRES_DB}
