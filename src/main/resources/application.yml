@@ -1,8 +1,8 @@
-server.port: 8081
+server.port: 8181
 spring:
   application.name: restobook_backend
   datasource:
-    url: jdbc:postgresql://restobook-db:5432/${POSTGRES_DB}
+    url: jdbc:postgresql://${POSTGRES_HOSTNAME}:5432/${POSTGRES_DB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
   jpa:

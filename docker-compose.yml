@@ -11,13 +11,18 @@ services:
   server:
     build:
       context: .
-      target: development
+      dockerfile: Dockerfile
+    networks:
+      - restobook-net
     ports:
-      - 8081:8080
+      - "8181:8181"
     depends_on:
       - restobook-db
     environment:
-      POSTGRES_URL: jdbc:postgresql://restobook-db:5432/${POSTGRES_DB}
+      POSTGRES_HOSTNAME: restobook-db
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
   restobook-db:
     image: postgres:16.2
@@ -31,7 +36,7 @@ services:
       - restobook-data:/var/lib/postgresql/data
     restart: unless-stopped
     ports:
-      - 5432:5432
+      - "5432:5432"
     expose:
       - 5432
     healthcheck:
@@ -49,7 +54,7 @@ services:
       - restobook-net
     restart: unless-stopped
     ports:
-      - 8080:80
+      - "8080:80"
     volumes:
       - restobook-pgadmin-servers:/pgadmin4/servers.json
     depends_on:
