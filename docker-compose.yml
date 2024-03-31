@@ -46,6 +46,7 @@ services:
       - web-root:/var/www/html
     command: certonly --webroot --webroot-path=/var/www/html --email pavelputin2003@yandex.ru --agree-tos --no-eff-email --force-renewal -d 2778989-ta65313.twc1.net -d www.2778989-ta65313.twc1.net
   server:
+    container_name: server
     build:
       context: .
       dockerfile: Dockerfile
@@ -65,6 +66,7 @@ services:
       - logs:/logs
 
   restobook-db:
+    container_name: restobook-db
     image: postgres:16.2
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -86,6 +88,7 @@ services:
       retries: 5
 
   pgadmin:
+    container_name: pgadmin
     image: elestio/pgadmin:REL-8_3
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
