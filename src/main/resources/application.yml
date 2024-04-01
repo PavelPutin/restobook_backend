@@ -1,7 +1,5 @@
 server:
   port: 8181
-  servlet:
-    context-path: restobook-api
 spring:
   application.name: restobook_backend
   datasource:
