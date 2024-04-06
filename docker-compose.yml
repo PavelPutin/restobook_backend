@@ -1,0 +1,106 @@
+version: '3.9'
+
+networks:
+  restobook-net:
+    driver: bridge
+
+volumes:
+  restobook-data:
+  restobook-pgadmin-servers:
+  logs:
+#  certbot-etc:
+#  certbot-var:
+  web-root:
+#  dhparam:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      device: /root/restobook_backend/dhparam/
+#      o: bind
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:1.25
+    restart: always
+    depends_on:
+      - restobook-api
+    ports:
+      - 80:80
+#      - 443:443
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - web-root:/var/www/html
+#      - certbot-etc:/etc/letsencrypt
+#      - certbot-var:/var/lib/letsencrypt
+#      - dhparam:/etc/ssl/certs
+    networks:
+      - restobook-net
+
+#  certbot:
+#    image: certbot/certbot
+#    depends_on:
+#      - nginx
+#    container_name: certbot
+#    volumes:
+#      - certbot-etc:/etc/letsencrypt
+#      - certbot-var:/var/lib/letsencrypt
+#      - web-root:/var/www/html
+#    command: certonly --webroot --webroot-path=/var/www/html --email pavelputin2003@yandex.ru --agree-tos --no-eff-email --force-renewal -d 2778989-ta65313.twc1.net -d www.2778989-ta65313.twc1.net
+
+  restobook-api:
+    container_name: restobook-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - restobook-net
+    ports:
+      - "8181:8181"
+    depends_on:
+      - restobook-db
+    environment:
+      POSTGRES_HOSTNAME: restobook-db
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - logs:/logs
+
+  restobook-db:
+    container_name: restobook-db
+    image: postgres:16.2
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - restobook-net
+    volumes:
+      - restobook-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    container_name: pgadmin
+    image: elestio/pgadmin:REL-8_3
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    networks:
+      - restobook-net
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - restobook-pgadmin-servers:/pgadmin4/servers.json
+    depends_on:
+      - restobook-db
