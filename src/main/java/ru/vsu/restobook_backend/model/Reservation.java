@@ -5,7 +5,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import javax.persistence.Entity;
 import java.time.Instant;
 import java.time.Duration;
 import java.util.List;
