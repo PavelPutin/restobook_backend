@@ -52,6 +52,7 @@ services:
     container_name: restobook-api
     build:
       context: .
+      target: development
       dockerfile: Dockerfile
     networks:
       - restobook-net
