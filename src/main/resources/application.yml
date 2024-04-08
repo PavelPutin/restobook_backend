@@ -2,6 +2,7 @@ server:
   port: 8181
   servlet:
     context-path: /restobook-api
+
 spring:
   application.name: restobook_backend
   datasource:
@@ -15,3 +16,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
+  flyway:
+    user: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://${POSTGRES_HOSTNAME}:5432/${POSTGRES_DB}
+    schemas: public
