@@ -1,0 +1,1 @@
+alter table public.restaurant alter column inn type character varying(12);
