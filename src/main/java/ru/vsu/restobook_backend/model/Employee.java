@@ -1,4 +1,4 @@
-package ru.vsu.restobook_backend;
+package ru.vsu.restobook_backend.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
