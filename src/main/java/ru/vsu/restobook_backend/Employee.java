@@ -23,7 +23,6 @@ public class Employee {
     private String patronymic;
     private String comment;
     private boolean changedPass;
-    private Restaurant restaurant;
 
     // Constructor, getters, setters, and other methods can be added here
 
