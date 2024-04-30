@@ -34,3 +34,4 @@ build/
 .env
 nginx/conf.d/bundle.crt
 nginx/conf.d/private.key
+nginx/conf.d/bundle.crt
