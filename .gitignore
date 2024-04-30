@@ -32,3 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 .env
+nginx/conf.d/bundle.crt
+nginx/conf.d/private.key

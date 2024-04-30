@@ -27,9 +27,12 @@ services:
       - restobook-api
     ports:
       - 80:80
-#      - 443:443
+      - 443:443
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/bundle.crt:/etc/ssl/bundle.crt
+      - ./nginx/private.key:/etc/ssl/private.key
+      - ./docs:/www/data
       - web-root:/var/www/html
 #      - certbot-etc:/etc/letsencrypt
 #      - certbot-var:/var/lib/letsencrypt
