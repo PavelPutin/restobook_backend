@@ -14,4 +14,4 @@ INSERT INTO restobook_backend.restaurant (id, rest_name, legal_entity_name, inn,
 VALUES (1, 'Restaurant 1', 'Legal Entity 1', '1234567890', 'Comment for Restaurant 1');
 
 INSERT INTO restaurant (id, rest_name, legal_entity_name, inn, rest_comment)
-VALUES (2, 'Restaurant 2', 'Legal Entity 2', '0987654321', 'Comment for Restaurant 2');
+VALUES (2, 'Restaurant 2', 'Legal Entity 2', '09876543321', 'Comment for Restaurant 2');
