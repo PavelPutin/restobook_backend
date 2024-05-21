@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/demo")
+@RequestMapping()
 public class DemoController {
 
     @GetMapping
@@ -16,5 +16,10 @@ public class DemoController {
     @GetMapping("/hello-2")
     public String hello2() {
         return "Hello from Spring boot keycloak ADMIN";
+    }
+
+    @GetMapping("/health")
+    public String health() {
+        return "Hello from Spring boot keycloak HEALTH";
     }
 }

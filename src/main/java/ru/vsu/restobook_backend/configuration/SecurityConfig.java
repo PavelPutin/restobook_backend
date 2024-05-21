@@ -24,11 +24,15 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors((httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer
                         .configurationSource(corsConfigurationSource())))
-                .authorizeHttpRequests(httpRequest -> httpRequest.anyRequest().authenticated());
+                .authorizeHttpRequests(httpRequest ->
+                        httpRequest
+                                .requestMatchers("/health").permitAll()
+                                .anyRequest().authenticated());
         http
                 .oauth2ResourceServer(resourceServer -> resourceServer.jwt(Customizer.withDefaults()));
         http
                 .sessionManagement(management -> management.sessionCreationPolicy(STATELESS));
+        System.out.println("CONFIGURED");
         return http.build();
     }
 
