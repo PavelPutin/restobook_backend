@@ -33,3 +33,10 @@ spring:
       converter:
         resource-id: restobook-rest-api
         principle-attribute: preferred_username
+
+keycloak:
+  url: http://localhost:8081
+  realm: restaurant
+  clientId: restobook-rest-api
+  username: ${KEYCLOAK_ADMIN}
+  password: ${KEYCLOAK_ADMIN_PASSWORD}
