@@ -27,3 +27,9 @@ spring:
         jwt:
           issuer-uri: http://localhost:8081/realms/restaurant
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+  jwt:
+    auth:
+      converter:
+        resource-id: restobook-rest-api
+        principle-attribute: preferred_username
