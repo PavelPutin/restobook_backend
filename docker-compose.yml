@@ -16,6 +16,7 @@ services:
     restart: always
     depends_on:
       - restobook-api
+      - keycloak
     ports:
       - 81:80
       - 4430:443
