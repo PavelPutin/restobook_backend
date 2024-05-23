@@ -19,26 +19,22 @@ volumes:
 #      o: bind
 
 services:
-#  nginx:
-#    container_name: nginx
-#    image: nginx:1.25
-#    restart: always
-#    depends_on:
-#      - restobook-api
-#    ports:
-#      - 80:80
-#      - 443:443
-#    volumes:
-#      - ./nginx/conf.d:/etc/nginx/conf.d
-#      - ./nginx/conf.d/bundle.crt:/etc/ssl/bundle.crt
-#      - ./nginx/conf.d/private.key:/etc/ssl/private.key
-#      - ./docs:/www/data
-#      #      - web-root:/var/www/html
-#    #      - certbot-etc:/etc/letsencrypt
-#    #      - certbot-var:/var/lib/letsencrypt
-#    #      - dhparam:/etc/ssl/certs
-#    networks:
-#      - restobook-net
+  nginx:
+    container_name: nginx
+    image: nginx:1.25
+    restart: always
+    depends_on:
+      - restobook-api
+    ports:
+      - 81:80
+      - 4430:443
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/conf.d/bundle.crt:/etc/ssl/bundle.crt
+      - ./nginx/conf.d/private.key:/etc/ssl/private.key
+      - ./docs:/www/data
+    networks:
+      - restobook-net
 
   #  certbot:
   #    image: certbot/certbot
@@ -70,6 +66,9 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       KEYCLOAK_URL: ${KEYCLOAK_URL}
       KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+      KEYCLOAK_API_USER: ${KEYCLOAK_API_USER}
+      KEYCLOAK_API_USER_PASSWORD: ${KEYCLOAK_API_USER_PASSWORD}
     volumes:
       - logs:/logs
 
