@@ -8,15 +8,6 @@ volumes:
   restobook-data:
   restobook-pgadmin-servers:
   logs:
-#  certbot-etc:
-#  certbot-var:
-#  web-root:
-#  dhparam:
-#    driver: local
-#    driver_opts:
-#      type: none
-#      device: /root/restobook_backend/dhparam/
-#      o: bind
 
 services:
   nginx:
@@ -36,41 +27,30 @@ services:
     networks:
       - restobook-net
 
-  #  certbot:
-  #    image: certbot/certbot
-  #    depends_on:
-  #      - nginx
-  #    container_name: certbot
-  #    volumes:
-  #      - certbot-etc:/etc/letsencrypt
-  #      - certbot-var:/var/lib/letsencrypt
-  #      - web-root:/var/www/html
-  #    command: certonly --webroot --webroot-path=/var/www/html --email pavelputin2003@yandex.ru --agree-tos --no-eff-email --force-renewal -d 2778989-ta65313.twc1.net -d www.2778989-ta65313.twc1.net
-
-  restobook-api:
-    container_name: restobook-api
-    build:
-      context: .
-      target: development
-      dockerfile: Dockerfile
-    networks:
-      - restobook-net
-    ports:
-      - "8181:8181"
-    depends_on:
-      - restobook-db
-    environment:
-      POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      KEYCLOAK_URL: ${KEYCLOAK_URL}
-      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
-      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
-      KEYCLOAK_API_USER: ${KEYCLOAK_API_USER}
-      KEYCLOAK_API_USER_PASSWORD: ${KEYCLOAK_API_USER_PASSWORD}
-    volumes:
-      - logs:/logs
+#  restobook-api:
+#    container_name: restobook-api
+#    build:
+#      context: .
+#      target: development
+#      dockerfile: Dockerfile
+#    networks:
+#      - restobook-net
+#    ports:
+#      - "8181:8181"
+#    depends_on:
+#      - restobook-db
+#    environment:
+#      POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME}
+#      POSTGRES_DB: ${POSTGRES_DB}
+#      POSTGRES_USER: ${POSTGRES_USER}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#      KEYCLOAK_URL: ${KEYCLOAK_URL}
+#      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+#      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+#      KEYCLOAK_API_USER: ${KEYCLOAK_API_USER}
+#      KEYCLOAK_API_USER_PASSWORD: ${KEYCLOAK_API_USER_PASSWORD}
+#    volumes:
+#      - logs:/logs
 
   restobook-db:
     container_name: restobook-db
@@ -96,22 +76,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-
-        #pgadmin:
-        #container_name: pgadmin
-        #    image: elestio/pgadmin:REL-8_3
-        #    environment:
-        #      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-        #      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-        #    networks:
-        #      - restobook-net
-        #    restart: unless-stopped
-        #    ports:
-        #      - "8080:80"
-        #    volumes:
-        #      - restobook-pgadmin-servers:/pgadmin4/servers.json
-        #    depends_on:
-      #      - restobook-db
 
   keycloak:
     container_name: keycloak
