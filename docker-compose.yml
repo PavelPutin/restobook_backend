@@ -128,6 +128,7 @@ services:
       KEYCLOAK_LOGLEVEL: DEBUG
     ports:
       - "8081:8080"
+      - "8443:8443"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://0.0.0.0:8081/realms/master" ]
       start_period: 10s

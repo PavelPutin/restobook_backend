@@ -19,8 +19,8 @@ public class KeycloakConfig {
     @Value("${keycloak.clientId}")
     private String clientId;
 
-//    @Value("${keycloak.clientSecret}")
-//    private String clientSecret;
+    @Value("${keycloak.clientSecret}")
+    private String clientSecret;
 
     @Value("${keycloak.username}")
     private String username;
@@ -35,7 +35,7 @@ public class KeycloakConfig {
                 .realm(realm)
                 .grantType(OAuth2Constants.PASSWORD)
                 .clientId(clientId)
-//                .clientSecret(clientSecret)
+                .clientSecret(clientSecret)
                 .username(username)
                 .password(password)
                 .build();

@@ -25,7 +25,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8081/realms/restaurant
+          issuer-uri: ${KEYCLOAK_URL}/realms/${KEYCLOAK_REALM}
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
   jwt:
@@ -35,8 +35,9 @@ spring:
         principle-attribute: preferred_username
 
 keycloak:
-  url: http://localhost:8081
-  realm: restaurant
-  clientId: restobook-rest-api
-  username: ${KEYCLOAK_ADMIN}
-  password: ${KEYCLOAK_ADMIN_PASSWORD}
+  url: ${KEYCLOAK_URL}
+  realm: ${KEYCLOAK_REALM}
+  clientId: ${KEYCLOAK_CLIENT_ID}
+  clientSecret: ${KEYCLOAK_CLIENT_SECRET}
+  username: ${KEYCLOAK_API_USER}
+  password: ${KEYCLOAK_API_USER_PASSWORD}
