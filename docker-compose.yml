@@ -27,30 +27,30 @@ services:
     networks:
       - restobook-net
 
-#  restobook-api:
-#    container_name: restobook-api
-#    build:
-#      context: .
-#      target: development
-#      dockerfile: Dockerfile
-#    networks:
-#      - restobook-net
-#    ports:
-#      - "8181:8181"
-#    depends_on:
-#      - restobook-db
-#    environment:
-#      POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME}
-#      POSTGRES_DB: ${POSTGRES_DB}
-#      POSTGRES_USER: ${POSTGRES_USER}
-#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-#      KEYCLOAK_URL: ${KEYCLOAK_URL}
-#      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
-#      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
-#      KEYCLOAK_API_USER: ${KEYCLOAK_API_USER}
-#      KEYCLOAK_API_USER_PASSWORD: ${KEYCLOAK_API_USER_PASSWORD}
-#    volumes:
-#      - logs:/logs
+  restobook-api:
+    container_name: restobook-api
+    build:
+      context: .
+      target: development
+      dockerfile: Dockerfile
+    networks:
+      - restobook-net
+    ports:
+      - "8181:8181"
+    depends_on:
+      - restobook-db
+    environment:
+      POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_URL: ${KEYCLOAK_URL}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+      KEYCLOAK_API_USER: ${KEYCLOAK_API_USER}
+      KEYCLOAK_API_USER_PASSWORD: ${KEYCLOAK_API_USER_PASSWORD}
+    volumes:
+      - logs:/logs
 
   restobook-db:
     container_name: restobook-db
