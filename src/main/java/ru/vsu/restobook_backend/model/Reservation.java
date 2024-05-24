@@ -1,8 +1,11 @@
 package ru.vsu.restobook_backend.model;
 
+import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+
 import java.time.Instant;
 import java.time.Duration;
 import java.util.List;
@@ -23,6 +26,7 @@ public class Reservation {
     @Column(name = "start_date_time")
     private Instant startDateTime;
     @Column(name = "duration")
+    @Type(PostgreSQLIntervalType.class)
     private Duration duration;
     @Column(name = "employee_full_name")
     private String employeeFullName;
