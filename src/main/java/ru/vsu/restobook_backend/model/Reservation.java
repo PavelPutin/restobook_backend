@@ -1,8 +1,6 @@
 package ru.vsu.restobook_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.Instant;
@@ -13,19 +11,30 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Reservation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "persons_number")
     private int personsNumber;
+    @Column(name = "client_phone_number")
     private String clientPhoneNumber;
+    @Column(name = "client_name")
     private String clientName;
+    @Column(name = "start_date_time")
     private Instant startDateTime;
+    @Column(name = "duration")
     private Duration duration;
+    @Column(name = "employee_full_name")
     private String employeeFullName;
+    @Column(name = "creating_date_time")
     private Instant creatingDateTime;
-    private String state; // Необходимо уточнить название поля
+    private ReservationState state; // Необходимо уточнить название поля
+    @Column(name = "reservation_comment")
     private String reservationComment;
     @ManyToOne
-    @JoinColumn(name = "restaurant_ID")
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant;
+    @ManyToMany
     private List<Table> tables;
 
 
