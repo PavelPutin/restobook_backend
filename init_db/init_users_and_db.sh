@@ -1,22 +1,22 @@
 #!/bin/bash
-psql -U "${POSTGRES_USER}" <<-END
-    CREATE ROLE ${KC_DB_USERNAME} WITH
-    	LOGIN
-    	NOSUPERUSER
-    	CREATEDB
-    	NOCREATEROLE
-    	INHERIT
-    	NOREPLICATION
-    	NOBYPASSRLS
-    	CONNECTION LIMIT -1
-    	PASSWORD '${KC_DB_PASSWORD}';
-    COMMENT ON ROLE ${KC_DB_USERNAME} IS 'Keycloak database user';
+psql -U "restobook" <<-END
+    CREATE ROLE kc_user WITH
+        LOGIN
+        NOSUPERUSER
+        CREATEDB
+        NOCREATEROLE
+        INHERIT
+        NOREPLICATION
+        NOBYPASSRLS
+        CONNECTION LIMIT -1
+        PASSWORD 'kc_pass';
+    COMMENT ON ROLE kc_user IS 'Keycloak database user';
 END
 
-psql -U "${POSTGRES_USER}" <<-END
+psql -U "restobook" <<-END
     CREATE DATABASE keycloak
         WITH
-        OWNER = ${KC_DB_USERNAME}
+        OWNER = kc_user
         ENCODING = 'UTF8'
         LOCALE_PROVIDER = 'libc'
         CONNECTION LIMIT = -1

@@ -18,8 +18,8 @@ services:
       - restobook-api
       - keycloak
     ports:
-      - 81:80
-      - 4430:443
+      - 80:80
+      - 443:443
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/conf.d/bundle.crt:/etc/ssl/bundle.crt
@@ -83,7 +83,10 @@ services:
     image: quay.io/keycloak/keycloak:24.0
     restart: unless-stopped
     command:
-      [ "start-dev" ]
+      - "start-dev"
+    ports:
+      - "8081:8080"
+      - "8443:8443"
     environment:
       KC_DB: ${KEYCLOAK_DB_VENDOR}
       KC_DB_URL: ${KEYCLOAK_POSTGRES_URL}
@@ -91,10 +94,13 @@ services:
       KC_DB_PASSWORD: ${KEYCLOAK_POSTGRES_PASSWORD}
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_PROXY: edge
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HTTPS_CERTIFICATE_FILE: /etc/x509/https/bundle.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/x509/https/private.key
       KEYCLOAK_LOGLEVEL: DEBUG
-    ports:
-      - "8081:8080"
-      - "8443:8443"
+
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://0.0.0.0:8081/realms/master" ]
       start_period: 10s
@@ -106,3 +112,6 @@ services:
         condition: service_healthy
     networks:
       - restobook-net
+    volumes:
+      - ./nginx/conf.d/bundle.crt:/etc/x509/https/bundle.crt
+      - ./nginx/conf.d/private.key:/etc/x509/https/private.key
