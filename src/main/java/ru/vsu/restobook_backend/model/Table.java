@@ -17,6 +17,7 @@ public class Table {
     private int tableNumber;
     @Column(name = "seats_number")
     private int seatsNumber;
+    @Enumerated(EnumType.STRING)
     private TableState state;
     @Column(name = "table_comment")
     private String comment;

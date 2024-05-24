@@ -32,6 +32,7 @@ public class Reservation {
     private String employeeFullName;
     @Column(name = "creating_date_time")
     private Instant creatingDateTime;
+    @Enumerated(EnumType.STRING)
     private ReservationState state; // Необходимо уточнить название поля
     @Column(name = "reservation_comment")
     private String reservationComment;
