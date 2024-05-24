@@ -12,7 +12,7 @@ public record ReservationDto(
         String clientPhoneNumber,
         String clientName,
         Instant startDateTime,
-        int durationIntervalMinutes,
+        long durationIntervalMinutes,
         String employeeFullName,
         Instant creatingDateTime,
         Optional<ReservationState> state,
