@@ -23,6 +23,7 @@ import static java.util.Collections.singletonList;
 public class AccountsService {
     private final RestaurantsService restaurantsService;
     private final EmployeesRepository employeesRepository;
+    private final SecurityService securityService;
     private final KeycloakService keycloakService;
 
 
@@ -48,25 +49,12 @@ public class AccountsService {
             throw new ValidationError(validationErrors);
         }
 
-        Set<String> roles = getRolesFromJwtAuthentication(principal);
-
-        if (roles.contains("ROLE_vendor_admin") && !employeeDto.role().get().equals("restobook_admin")) {
+        if (securityService.isVendorAdmin(principal) && !employeeDto.role().get().equals("restobook_admin")) {
             throw new RestaurantForbiddenException(singletonList("You are allowed to create only restobook_admin"));
         }
 
-        if (roles.contains("ROLE_restobook_admin")) {
-            var login = principal.getName();
-            var admin = employeesRepository.findByLogin(login);
-            if (admin.isPresent()) {
-                var adminRestaurantId = admin.get().getRestaurant().getId();
-                if (restaurantId != adminRestaurantId) {
-                    throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
-                }
-            }
-        }
-
-        if (roles.contains("ROLE_restobook_user")) {
-            throw new RestaurantForbiddenException(singletonList("You are not allowed to create users"));
+        if (!securityService.isRestaurantAdmin(restaurantId, principal)) {
+            throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
         }
 
         var employee = new Employee();
@@ -93,26 +81,15 @@ public class AccountsService {
     public List<Employee> getEmployees(int restaurantId, JwtAuthenticationToken principal) {
         var restaurant = restaurantsService.getById(restaurantId);
 
-        Set<String> roles = getRolesFromJwtAuthentication(principal);
-
-        if (roles.contains("ROLE_vendor_admin")) {
+        if (securityService.isVendorAdmin(principal)) {
             return employeesRepository.findAllByRestaurant(restaurant);
         }
 
-        if (roles.contains("ROLE_restobook_admin")) {
-            var login = principal.getName();
-            var admin = employeesRepository.findByLogin(login);
-            if (admin.isPresent()) {
-                var adminRestaurantId = admin.get().getRestaurant().getId();
-                if (restaurantId == adminRestaurantId) {
-                    return employeesRepository.findAllByRestaurant(restaurant);
-                } else {
-                    throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
-                }
-            }
+        if (securityService.isRestaurantAdmin(restaurantId, principal)) {
+            return employeesRepository.findAllByRestaurant(restaurant);
+        } else {
+            throw new RestaurantForbiddenException(singletonList("You are not allowed to get users"));
         }
-
-        throw new RestaurantForbiddenException(singletonList("You are not allowed to get users"));
     }
 
     public Employee getEmployeeById(int restaurantId, int employeeId, JwtAuthenticationToken principal) {
@@ -121,37 +98,18 @@ public class AccountsService {
 
         Set<String> roles = getRolesFromJwtAuthentication(principal);
 
-        if (roles.contains("ROLE_vendor_admin")) {
+        if (securityService.isVendorAdmin(principal)) {
             return findByIdWithException(employeeId);
         }
 
-        if (roles.contains("ROLE_restobook_admin")) {
-            var login = principal.getName();
-            var admin = employeesRepository.findByLogin(login);
-            if (admin.isPresent()) {
-                var adminRestaurantId = admin.get().getRestaurant().getId();
-                if (restaurantId == adminRestaurantId) {
-                    return findByIdWithException(employeeId);
-                } else {
-                    throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
-                }
-            }
+        if (securityService.isRestaurantAdmin(restaurantId, principal)) {
+            return findByIdWithException(employeeId);
         }
 
-        if (roles.contains("ROLE_restobook_user")) {
-            var login = principal.getName();
-            var userOpt = employeesRepository.findByLogin(login);
-            if (userOpt.isPresent()) {
-                var user = userOpt.get();
-                if (user.getId() == employeeId) {
-                    return findByIdWithException(employeeId);
-                } else {
-                    throw new RestaurantForbiddenException(singletonList("You are not this user"));
-                }
-            }
+        if (securityService.isThemSelfUser(employeeId, principal)) {
+            return findByIdWithException(employeeId);
         }
-
-        throw new RestaurantForbiddenException(singletonList("You are not allowed to get user"));
+        throw new RestaurantForbiddenException(singletonList("You are not allowed to get user " + employeeId));
     }
 
     public Employee getEmployeeByLogin(String login) {
@@ -169,25 +127,11 @@ public class AccountsService {
     }
 
     public void updateEmployee(int restaurantId, int employeeId, EmployeeDto employeeDto, JwtAuthenticationToken principal) {
-        var restaurant = restaurantsService.getById(restaurantId);
+        restaurantsService.getById(restaurantId);
 
-        Set<String> roles = getRolesFromJwtAuthentication(principal);
-
-        if (roles.contains("ROLE_restobook_admin")) {
-            var login = principal.getName();
-            var admin = employeesRepository.findByLogin(login);
-            if (admin.isPresent()) {
-                var adminRestaurantId = admin.get().getRestaurant().getId();
-                if (restaurantId != adminRestaurantId) {
-                    throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
-                }
-            }
+        if (!securityService.isRestaurantAdmin(restaurantId, principal)) {
+            throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
         }
-
-        if (roles.contains("ROLE_restobook_user")) {
-            throw new RestaurantForbiddenException(singletonList("You are not allowed to create users"));
-        }
-
 
         var employee = findByIdWithException(employeeId);
         employee.setName(employeeDto.name());
@@ -203,17 +147,9 @@ public class AccountsService {
 
     public void deleteEmployee(int restaurantId, int employeeId, JwtAuthenticationToken principal) {
         restaurantsService.getById(restaurantId);
-        Set<String> roles = getRolesFromJwtAuthentication(principal);
 
-        if (roles.contains("ROLE_restobook_admin")) {
-            var login = principal.getName();
-            var admin = employeesRepository.findByLogin(login);
-            if (admin.isPresent()) {
-                var adminRestaurantId = admin.get().getRestaurant().getId();
-                if (restaurantId != adminRestaurantId) {
-                    throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
-                }
-            }
+        if (!securityService.isRestaurantAdmin(restaurantId, principal)) {
+            throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
         }
 
         var toDelete = findByIdWithException(employeeId);
