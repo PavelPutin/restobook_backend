@@ -11,6 +11,7 @@ import ru.vsu.restobook_backend.dto.ErrorDto;
 import ru.vsu.restobook_backend.dto.ReservationDto;
 import ru.vsu.restobook_backend.mapper.ReservationMapper;
 import ru.vsu.restobook_backend.model.Reservation;
+import ru.vsu.restobook_backend.model.Table;
 import ru.vsu.restobook_backend.service.NotFoundException;
 import ru.vsu.restobook_backend.service.ReservationsService;
 import ru.vsu.restobook_backend.service.RestaurantForbiddenException;
@@ -54,6 +55,23 @@ public class ReservationsController {
         try {
             List<Reservation> reservation = reservationsService.getAll(restaurantId, principal);
             var result = reservation.stream().map(reservationMapper::toDto).toList();
+            return ResponseEntity.ok(result);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @GetMapping("/{reservationId}")
+    @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
+    public ResponseEntity<?> getTableById(
+            @PathVariable int restaurantId,
+            @PathVariable int reservationId,
+            JwtAuthenticationToken principal) {
+        try {
+            Reservation reservation = reservationsService.getReservationById(restaurantId, reservationId, principal);
+            var result = reservationMapper.toDto(reservation);
             return ResponseEntity.ok(result);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);

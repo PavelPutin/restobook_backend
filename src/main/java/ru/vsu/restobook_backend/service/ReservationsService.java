@@ -111,4 +111,16 @@ public class ReservationsService {
 
         return reservationsRepository.findAllByRestaurant(restaurant);
     }
+
+    public Reservation getReservationById(int restaurantId, int reservationId, JwtAuthenticationToken principal) {
+        restaurantsService.getById(restaurantId);
+
+        if (!securityService.isRestaurantUser(restaurantId, principal) &&
+                !securityService.isRestaurantAdmin(restaurantId, principal)) {
+            throw new RestaurantForbiddenException(singletonList("You are not the employee of restaurant " + restaurantId));
+        }
+
+        var reservationOpt = reservationsRepository.findById(reservationId);
+        return reservationOpt.orElseThrow(() -> new NotFoundException(List.of("Reservation not found with id " + reservationId)));
+    }
 }
