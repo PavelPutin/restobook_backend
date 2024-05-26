@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
+import ru.vsu.restobook_backend.model.Employee;
+import ru.vsu.restobook_backend.repository.EmployeesRepository;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,7 +16,7 @@ import static java.util.Collections.singletonList;
 @AllArgsConstructor
 public class SecurityService {
     private final RestaurantsService restaurantsService;
-    private final AccountsService accountsService;
+    private final EmployeesRepository employeesRepository;
 
     public boolean isRestaurantAdmin(int restaurantId, JwtAuthenticationToken principal) {
         restaurantsService.getById(restaurantId);
@@ -22,7 +24,7 @@ public class SecurityService {
 
         if (roles.contains("ROLE_restobook_admin")) {
             var login = principal.getName();
-            var admin = accountsService.getEmployeeByLogin(login);
+            var admin = getEmployeeByLogin(login);
             var adminRestaurantId = admin.getRestaurant().getId();
             return restaurantId == adminRestaurantId;
         }
@@ -31,15 +33,15 @@ public class SecurityService {
 
     public boolean isVendorAdmin(JwtAuthenticationToken principal) {
         Set<String> roles = getRolesFromJwtAuthentication(principal);
-        return roles.contains("ROLE_restobook_user");
+        return roles.contains("ROLE_vendor_admin");
     }
 
     public boolean isThemSelfUser(int employeeId, JwtAuthenticationToken principal) {
         Set<String> roles = getRolesFromJwtAuthentication(principal);
 
-        if (roles.contains("ROLE_restobook_user")) {
+        if (roles.contains("ROLE_restobook_user") && roles.contains("ROLE_vendor_admin")) {
             var login = principal.getName();
-            var user = accountsService.getEmployeeByLogin(login);
+            var user = getEmployeeByLogin(login);
             return user.getId() == employeeId;
         }
         return false;
@@ -47,5 +49,10 @@ public class SecurityService {
 
     private Set<String> getRolesFromJwtAuthentication(JwtAuthenticationToken principal) {
         return principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+    }
+
+    public Employee getEmployeeByLogin(String login) {
+        return employeesRepository.findByLogin(login).orElseThrow(() ->
+                new NotFoundException(singletonList("Employee not found with login " + login)));
     }
 }

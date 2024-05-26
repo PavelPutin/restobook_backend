@@ -53,7 +53,7 @@ public class AccountsService {
             throw new RestaurantForbiddenException(singletonList("You are allowed to create only restobook_admin"));
         }
 
-        if (!securityService.isRestaurantAdmin(restaurantId, principal)) {
+        if (!securityService.isRestaurantAdmin(restaurantId, principal) && !securityService.isVendorAdmin(principal)) {
             throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
         }
 
@@ -110,11 +110,6 @@ public class AccountsService {
             return findByIdWithException(employeeId);
         }
         throw new RestaurantForbiddenException(singletonList("You are not allowed to get user " + employeeId));
-    }
-
-    public Employee getEmployeeByLogin(String login) {
-        return employeesRepository.findByLogin(login).orElseThrow(() ->
-                new NotFoundException(singletonList("Employee not found with login " + login)));
     }
 
     private Employee findByIdWithException(int employeeId) {
