@@ -195,4 +195,28 @@ public class AccountsService {
         }
         employeesRepository.save(employee);
     }
+
+    public void deleteEmployee(int restaurantId, int employeeId, JwtAuthenticationToken principal) {
+        restaurantsService.getById(restaurantId);
+        Set<String> roles = getRolesFromJwtAuthentication(principal);
+
+        if (roles.contains("ROLE_restobook_admin")) {
+            var login = principal.getName();
+            var admin = employeesRepository.findByLogin(login);
+            if (admin.isPresent()) {
+                var adminRestaurantId = admin.get().getRestaurant().getId();
+                if (restaurantId != adminRestaurantId) {
+                    throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
+                }
+            }
+        }
+
+        var toDelete = findByIdWithException(employeeId);
+        try {
+            keycloakService.deleteEmployee(toDelete.getLogin());
+            employeesRepository.delete(toDelete);
+        } catch (RuntimeException e) {
+            log.log(Level.ERROR, "Can't delete user " + employeeId);
+        }
+    }
 }

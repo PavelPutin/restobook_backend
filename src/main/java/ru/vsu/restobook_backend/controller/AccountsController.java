@@ -84,4 +84,20 @@ public class AccountsController {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
         }
     }
+
+    @DeleteMapping("/{employeeId}")
+    @PreAuthorize("hasAnyRole('vendor_admin', 'restobook_admin')")
+    public ResponseEntity<?> deleteEmployeeById(
+            @PathVariable int restaurantId,
+            @PathVariable int employeeId,
+            JwtAuthenticationToken principal) {
+        try {
+            accountsService.deleteEmployee(restaurantId, employeeId, principal);
+            return ResponseEntity.noContent().build();
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
+        }
+    }
 }

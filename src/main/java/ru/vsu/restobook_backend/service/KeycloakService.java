@@ -22,6 +22,7 @@ import ru.vsu.restobook_backend.util.JwtUserUUIDConverter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,13 +74,23 @@ public class KeycloakService {
         try (var response = usersResource.create(userRepresentation)) {
             if (response.getStatus() == 201) {
                 log.log(Level.INFO, "Employee successfully created in keycloak");
-                List<UserRepresentation> userList = keycloak.realm(realm).users().search(employeeDto.login()).stream()
-                        .filter(userRep -> userRep.getUsername().equals(employeeDto.login())).toList();
-                userRepresentation = userList.get(0);
-                assignRoleToUser(userRepresentation.getId(), employeeDto.role().get());
+                var userOpt = getUserByLogin(employeeDto.login());
+                if (userOpt.isPresent()) {
+                    userRepresentation = userOpt.get();
+                    assignRoleToUser(userRepresentation.getId(), employeeDto.role().get());
+                }
             } else {
                 log.log(Level.WARN, "Can't add employee to keycloak");
             }
+        }
+    }
+
+    public void deleteEmployee(String employeeLogin) {
+        UsersResource usersResource = keycloak.realm(realm).users();
+        var userOpt = getUserByLogin(employeeLogin);
+        if (userOpt.isPresent()) {
+            var userRepresentation = userOpt.get();
+            usersResource.delete(userRepresentation.getId());
         }
     }
 
@@ -95,4 +106,11 @@ public class KeycloakService {
         //assigning to user
         userResource.roles().clientLevel(clientRepresentation.getId()).add(Collections.singletonList(roleRepresentation));
     }
+
+    private Optional<UserRepresentation> getUserByLogin(String login) {
+        return keycloak.realm(realm).users().search(login).stream()
+                .filter(userRep -> userRep.getUsername().equals(login)).findFirst();
+    }
+
+
 }
