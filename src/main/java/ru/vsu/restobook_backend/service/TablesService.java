@@ -65,4 +65,15 @@ public class TablesService {
 
         return tablesRepository.save(table);
     }
+
+    public List<Table> getAll(int restaurantId, JwtAuthenticationToken principal) {
+        var restaurant = restaurantsService.getById(restaurantId);
+
+        if (!securityService.isRestaurantUser(restaurantId, principal) &&
+                !securityService.isRestaurantAdmin(restaurantId, principal)) {
+            throw new RestaurantForbiddenException(singletonList("You are not the employee of restaurant " + restaurantId));
+        }
+
+        return tablesRepository.findAllByRestaurant(restaurant);
+    }
 }

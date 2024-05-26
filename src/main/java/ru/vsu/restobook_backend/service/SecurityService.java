@@ -31,6 +31,19 @@ public class SecurityService {
         return false;
     }
 
+    public boolean isRestaurantUser(int restaurantId, JwtAuthenticationToken principal) {
+        restaurantsService.getById(restaurantId);
+        Set<String> roles = getRolesFromJwtAuthentication(principal);
+
+        if (roles.contains("ROLE_restobook_user")) {
+            var login = principal.getName();
+            var user = getEmployeeByLogin(login);
+            var userRestaurantId = user.getRestaurant().getId();
+            return restaurantId == userRestaurantId;
+        }
+        return false;
+    }
+
     public boolean isVendorAdmin(JwtAuthenticationToken principal) {
         Set<String> roles = getRolesFromJwtAuthentication(principal);
         return roles.contains("ROLE_vendor_admin");

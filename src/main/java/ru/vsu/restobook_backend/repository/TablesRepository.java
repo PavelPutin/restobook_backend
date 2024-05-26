@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface TablesRepository extends JpaRepository<Table, Integer> {
     List<Table> findByTableNumberAndRestaurant(int tableNumber, Restaurant restaurant);
+    List<Table> findAllByRestaurant(Restaurant restaurant);
 }
