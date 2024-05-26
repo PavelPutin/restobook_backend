@@ -60,7 +60,6 @@ public class AccountsService {
             if (admin.isPresent()) {
                 var adminRestaurantId = admin.get().getRestaurant().getId();
                 if (restaurantId != adminRestaurantId) {
-                    var dummy = singletonList("You are not the admin of restaurant " + restaurantId);
                     throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
                 }
             }
@@ -162,5 +161,38 @@ public class AccountsService {
 
     private Set<String> getRolesFromJwtAuthentication(JwtAuthenticationToken principal) {
         return principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+    }
+
+    public void updateEmployee(int restaurantId, int employeeId, EmployeeDto employeeDto, JwtAuthenticationToken principal) {
+        var restaurant = restaurantsService.getById(restaurantId);
+
+        Set<String> roles = getRolesFromJwtAuthentication(principal);
+
+        if (roles.contains("ROLE_restobook_admin")) {
+            var login = principal.getName();
+            var admin = employeesRepository.findByLogin(login);
+            if (admin.isPresent()) {
+                var adminRestaurantId = admin.get().getRestaurant().getId();
+                if (restaurantId != adminRestaurantId) {
+                    throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
+                }
+            }
+        }
+
+        if (roles.contains("ROLE_restobook_user")) {
+            throw new RestaurantForbiddenException(singletonList("You are not allowed to create users"));
+        }
+
+
+        var employee = findByIdWithException(employeeId);
+        employee.setName(employeeDto.name());
+        employee.setSurname(employeeDto.surname());
+        if (employeeDto.patronymic().isPresent()) {
+            employee.setPatronymic(employeeDto.patronymic().get());
+        }
+        if (employeeDto.comment().isPresent()) {
+            employee.setComment(employeeDto.comment().get());
+        }
+        employeesRepository.save(employee);
     }
 }

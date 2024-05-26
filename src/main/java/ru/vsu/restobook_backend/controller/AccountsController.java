@@ -67,4 +67,21 @@ public class AccountsController {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
         }
     }
+
+    @PutMapping("/{employeeId}")
+    @PreAuthorize("hasAnyRole('vendor_admin', 'restobook_admin')")
+    public ResponseEntity<?> updateEmployeeById(
+            @PathVariable int restaurantId,
+            @PathVariable int employeeId,
+            @RequestBody EmployeeDto employeeDto,
+            JwtAuthenticationToken principal) {
+        try {
+            accountsService.updateEmployee(restaurantId, employeeId, employeeDto, principal);
+            return ResponseEntity.noContent().build();
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
+        }
+    }
 }
