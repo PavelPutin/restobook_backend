@@ -68,9 +68,29 @@ public class AccountsService {
         }
     }
 
-    public List<Employee> getEmployees(int restaurantId) {
+    public List<Employee> getEmployees(int restaurantId, JwtAuthenticationToken principal) {
         var restaurant = restaurantsService.getById(restaurantId);
-        return employeesRepository.findAllByRestaurant(restaurant);
+
+        Set<String> roles = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+
+        if (roles.contains("ROLE_vendor_admin")) {
+            return employeesRepository.findAllByRestaurant(restaurant);
+        }
+
+        if (roles.contains("ROLE_restobook_admin")) {
+            var login = principal.getName();
+            var admin = employeesRepository.findByLogin(login);
+            if (admin.isPresent()) {
+                var adminRestaurantId = admin.get().getRestaurant().getId();
+                if (restaurantId == adminRestaurantId) {
+                    return employeesRepository.findAllByRestaurant(restaurant);
+                } else {
+                    throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
+                }
+            }
+        }
+
+        throw new RestaurantForbiddenException(singletonList("You are not allowed to get users"));
     }
 
     public Employee getEmployeeById(int restaurantId, int employeeId, JwtAuthenticationToken principal) {

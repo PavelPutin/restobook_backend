@@ -41,13 +41,15 @@ public class AccountsController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('vendor_admin', 'restobook_admin')")
-    public ResponseEntity<?> getAllEmployeesByRestaurantId(@PathVariable int restaurantId) {
+    public ResponseEntity<?> getAllEmployeesByRestaurantId(@PathVariable int restaurantId, JwtAuthenticationToken principal) {
         try {
-            List<Employee> employees = accountsService.getEmployees(restaurantId);
+            List<Employee> employees = accountsService.getEmployees(restaurantId, principal);
             List<EmployeeDto> result = employees.stream().map(employeeMapper::toDto).toList();
             return ResponseEntity.ok().body(result);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
         }
     }
 
