@@ -99,4 +99,19 @@ public class ReservationsController {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
         }
     }
+
+    @DeleteMapping("/{reservationId}")
+    @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
+    public ResponseEntity<?> deleteTable(@PathVariable int restaurantId,
+                                         @PathVariable int reservationId,
+                                         JwtAuthenticationToken principal) {
+        try {
+            reservationsService.deleteReservation(restaurantId, reservationId, principal);
+            return ResponseEntity.noContent().build();
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
+        }
+    }
 }

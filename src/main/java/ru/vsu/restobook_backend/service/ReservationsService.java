@@ -192,4 +192,12 @@ public class ReservationsService {
         }
         return reservationsRepository.save(reservation);
     }
+
+    @Transactional
+    public void deleteReservation(int restaurantId, int reservationId, JwtAuthenticationToken principal) {
+        var reservation = getReservationById(restaurantId, reservationId, principal);
+        reservation.getTables().forEach(t -> t.getReservations().remove(reservation));
+        tablesRepository.saveAll(reservation.getTables());
+        reservationsRepository.delete(reservation);
+    }
 }
