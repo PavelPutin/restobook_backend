@@ -7,7 +7,9 @@ public record EmployeeDto(
         String login,
         String surname,
         String name,
-        String patronymic,
+        Optional<String> password,
+        Optional<String> role,
+        Optional<String> patronymic,
         Optional<String> comment,
         Optional<Boolean> changedPassword,
         Optional<Integer> restaurantId
