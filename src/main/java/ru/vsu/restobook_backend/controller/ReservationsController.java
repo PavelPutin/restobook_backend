@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.restobook_backend.dto.ErrorDto;
 import ru.vsu.restobook_backend.dto.ReservationDto;
+import ru.vsu.restobook_backend.dto.TableDto;
 import ru.vsu.restobook_backend.mapper.ReservationMapper;
 import ru.vsu.restobook_backend.model.Reservation;
 import ru.vsu.restobook_backend.model.Table;
@@ -65,7 +66,7 @@ public class ReservationsController {
 
     @GetMapping("/{reservationId}")
     @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
-    public ResponseEntity<?> getTableById(
+    public ResponseEntity<?> getReservationById(
             @PathVariable int restaurantId,
             @PathVariable int reservationId,
             JwtAuthenticationToken principal) {
@@ -73,6 +74,25 @@ public class ReservationsController {
             Reservation reservation = reservationsService.getReservationById(restaurantId, reservationId, principal);
             var result = reservationMapper.toDto(reservation);
             return ResponseEntity.ok(result);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @PutMapping("/{reservationId}")
+    @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
+    public ResponseEntity<?> updateReservation(@PathVariable int restaurantId,
+                                         @PathVariable int reservationId,
+                                         @RequestBody ReservationDto reservationDto,
+                                         JwtAuthenticationToken principal) {
+        try {
+            var reservation = reservationsService.updateReservation(restaurantId, reservationId, reservationDto, principal);
+            var result = reservationMapper.toDto(reservation);
+            return ResponseEntity.ok(result);
+        } catch (ValidationError e) {
+            return ResponseEntity.badRequest().body(new ErrorDto(Instant.now(), e.getErrors()));
         } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
         } catch (RestaurantForbiddenException e) {
