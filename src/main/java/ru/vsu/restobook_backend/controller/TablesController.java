@@ -78,7 +78,7 @@ public class TablesController {
     }
 
     @PutMapping("/{tableId}")
-    @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
+    @PreAuthorize("hasAnyRole('restobook_admin')")
     public ResponseEntity<?> updateTable(@PathVariable int restaurantId,
                                          @PathVariable int tableId,
                                          @RequestBody TableDto tableDto,
@@ -97,7 +97,7 @@ public class TablesController {
     }
 
     @DeleteMapping("/{tableId}")
-    @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
+    @PreAuthorize("hasAnyRole('restobook_admin')")
     public ResponseEntity<?> deleteTable(@PathVariable int restaurantId,
                                          @PathVariable int tableId,
                                          JwtAuthenticationToken principal) {
