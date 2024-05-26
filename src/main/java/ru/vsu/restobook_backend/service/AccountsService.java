@@ -3,13 +3,20 @@ package ru.vsu.restobook_backend.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Level;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import ru.vsu.restobook_backend.dto.EmployeeDto;
 import ru.vsu.restobook_backend.model.Employee;
+import ru.vsu.restobook_backend.model.Restaurant;
 import ru.vsu.restobook_backend.repository.EmployeesRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
+import static java.util.Collections.singletonList;
 
 @Service
 @AllArgsConstructor
@@ -66,5 +73,32 @@ public class AccountsService {
     public List<Employee> getEmployees(int restaurantId) {
         var restaurant = restaurantsService.getById(restaurantId);
         return employeesRepository.findAllByRestaurant(restaurant);
+    }
+
+    public Employee getEmployeeById(int restaurantId, int employeeId, JwtAuthenticationToken principal) {
+        // check if restaurant exists
+        restaurantsService.getById(restaurantId);
+
+        Optional<GrantedAuthority> authority = principal.getAuthorities().stream().findFirst();
+        if (authority.isEmpty()) {
+            throw new RestaurantForbiddenException(singletonList("User have not authority"));
+        }
+
+        if (authority.get().getAuthority().equals("ROLE_restobook_admin")) {
+            var login = principal.getName();
+            var admin = employeesRepository.findByLogin(login);
+            if (admin.isPresent()) {
+                var adminRestaurantId = admin.get().getRestaurant().getId();
+                if (restaurantId == adminRestaurantId) {
+                    Optional<Employee> employee = employeesRepository.findById(employeeId);
+                    return employee.orElseThrow(() -> new NotFoundException(List.of("Employee not found with id " + employeeId)));
+                } else {
+                    throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
+                }
+            }
+        }
+
+        Optional<Employee> employee = employeesRepository.findById(employeeId);
+        return employee.orElseThrow(() -> new NotFoundException(List.of("Employee not found with id " + employeeId)));
     }
 }

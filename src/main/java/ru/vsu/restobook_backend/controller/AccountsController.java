@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.restobook_backend.dto.EmployeeDto;
@@ -12,6 +13,7 @@ import ru.vsu.restobook_backend.mapper.EmployeeMapper;
 import ru.vsu.restobook_backend.model.Employee;
 import ru.vsu.restobook_backend.service.AccountsService;
 import ru.vsu.restobook_backend.service.NotFoundException;
+import ru.vsu.restobook_backend.service.RestaurantForbiddenException;
 import ru.vsu.restobook_backend.service.ValidationError;
 
 import java.time.Instant;
@@ -46,6 +48,22 @@ public class AccountsController {
             return ResponseEntity.ok().body(result);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /*
+    * Получить сотрудника может администратор того же ресторана*/
+    @GetMapping("/{employeeId}")
+    @PreAuthorize("hasAnyRole('vendor_admin', 'restobook_admin')")
+    public ResponseEntity<?> getEmployeeById(@PathVariable int restaurantId, @PathVariable int employeeId, JwtAuthenticationToken principal) {
+        try {
+            Employee employee = accountsService.getEmployeeById(restaurantId, employeeId, principal);
+            EmployeeDto result = employeeMapper.toDto(employee);
+            return ResponseEntity.ok(result);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
         }
     }
 }
