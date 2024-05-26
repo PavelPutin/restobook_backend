@@ -62,7 +62,7 @@ public class TablesController {
 
     @GetMapping("/{tableId}")
     @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
-    public ResponseEntity<?> getAllTablesByRestaurant(
+    public ResponseEntity<?> getTableById(
             @PathVariable int restaurantId,
             @PathVariable int tableId,
             JwtAuthenticationToken principal) {
