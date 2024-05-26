@@ -10,6 +10,7 @@ public record TableDto(
         int number,
         int seatsNumber,
         Optional<TableState> state,
+        Optional<String> comment,
         Optional<Integer> restaurantId,
         Optional<List<Integer>> reservationIds
 ) {

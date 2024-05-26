@@ -16,6 +16,7 @@ public class TableMapper {
                 table.getTableNumber(),
                 table.getSeatsNumber(),
                 Optional.of(table.getState()),
+                Optional.ofNullable(table.getComment()),
                 Optional.of(table.getRestaurant().getId()),
                 Optional.of(table.getReservations().stream().map(Reservation::getId).toList())
         );
