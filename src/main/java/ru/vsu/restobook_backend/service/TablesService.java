@@ -76,4 +76,16 @@ public class TablesService {
 
         return tablesRepository.findAllByRestaurant(restaurant);
     }
+
+    public Table getTableById(int restaurantId, int tableId, JwtAuthenticationToken principal) {
+        restaurantsService.getById(restaurantId);
+
+        if (!securityService.isRestaurantUser(restaurantId, principal) &&
+                !securityService.isRestaurantAdmin(restaurantId, principal)) {
+            throw new RestaurantForbiddenException(singletonList("You are not the employee of restaurant " + restaurantId));
+        }
+
+        var tableOpt = tablesRepository.findById(tableId);
+        return tableOpt.orElseThrow(() -> new NotFoundException(List.of("Table not found with id " + restaurantId)));
+    }
 }
