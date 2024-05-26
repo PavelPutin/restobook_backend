@@ -31,6 +31,11 @@ public class SecurityService {
         return false;
     }
 
+    public boolean isVendorAdmin(JwtAuthenticationToken principal) {
+        Set<String> roles = getRolesFromJwtAuthentication(principal);
+        return roles.contains("ROLE_restobook_user");
+    }
+
     private Set<String> getRolesFromJwtAuthentication(JwtAuthenticationToken principal) {
         return principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
     }
