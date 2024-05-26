@@ -2,7 +2,9 @@ package ru.vsu.restobook_backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity(name = "employee")
 @Data
@@ -23,5 +25,7 @@ public class Employee {
     private boolean changedPass;
     @ManyToOne
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Restaurant restaurant;
 }

@@ -2,7 +2,9 @@ package ru.vsu.restobook_backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class Table {
     private String comment;
     @ManyToOne
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Restaurant restaurant;
     @ManyToMany
     @JoinTable(
@@ -30,5 +34,7 @@ public class Table {
             joinColumns = @JoinColumn(name = "table_id"),
             inverseJoinColumns = @JoinColumn(name = "reservation_id")
     )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Reservation> reservations;
 }

@@ -28,14 +28,16 @@ public class AccountsController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('vendor_admin', 'restobook_admin')")
-    public ResponseEntity<?> createEmployee(@PathVariable int restaurantId, @RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<?> createEmployee(@PathVariable int restaurantId, @RequestBody EmployeeDto employeeDto, JwtAuthenticationToken principal) {
         try {
-            accountsService.createEmployee(restaurantId, employeeDto);
+            accountsService.createEmployee(restaurantId, employeeDto, principal);
             return ResponseEntity.ok().build();
         } catch (ValidationError e) {
             return ResponseEntity.badRequest().body(new ErrorDto(Instant.now(), e.getErrors()));
         } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
         }
     }
 
@@ -53,8 +55,6 @@ public class AccountsController {
         }
     }
 
-    /*
-    * Получить сотрудника может администратор того же ресторана*/
     @GetMapping("/{employeeId}")
     public ResponseEntity<?> getEmployeeById(@PathVariable int restaurantId, @PathVariable int employeeId, JwtAuthenticationToken principal) {
         try {

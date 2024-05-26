@@ -3,7 +3,9 @@ package ru.vsu.restobook_backend.model;
 import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.Type;
 
 import java.time.Instant;
@@ -40,6 +42,8 @@ public class Reservation {
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant;
     @ManyToMany
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Table> tables;
 
 

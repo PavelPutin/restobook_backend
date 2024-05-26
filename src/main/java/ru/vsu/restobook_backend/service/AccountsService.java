@@ -11,6 +11,7 @@ import ru.vsu.restobook_backend.model.Employee;
 import ru.vsu.restobook_backend.model.Restaurant;
 import ru.vsu.restobook_backend.repository.EmployeesRepository;
 
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class AccountsService {
     private final KeycloakService keycloakService;
 
 
-    public void createEmployee(int restaurantId, EmployeeDto employeeDto) {
+    public void createEmployee(int restaurantId, EmployeeDto employeeDto, JwtAuthenticationToken principal) {
         var restaurant = restaurantsService.getById(restaurantId);
 
         List<String> validationErrors = new ArrayList<>();
@@ -45,6 +46,28 @@ public class AccountsService {
         if (!validationErrors.isEmpty()) {
             log.log(Level.INFO, "Can't create employee");
             throw new ValidationError(validationErrors);
+        }
+
+        Set<String> roles = getRolesFromJwtAuthentication(principal);
+
+        if (roles.contains("ROLE_vendor_admin") && !employeeDto.role().get().equals("restobook_admin")) {
+            throw new RestaurantForbiddenException(singletonList("You are allowed to create only restobook_admin"));
+        }
+
+        if (roles.contains("ROLE_restobook_admin")) {
+            var login = principal.getName();
+            var admin = employeesRepository.findByLogin(login);
+            if (admin.isPresent()) {
+                var adminRestaurantId = admin.get().getRestaurant().getId();
+                if (restaurantId != adminRestaurantId) {
+                    var dummy = singletonList("You are not the admin of restaurant " + restaurantId);
+                    throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
+                }
+            }
+        }
+
+        if (roles.contains("ROLE_restobook_user")) {
+            throw new RestaurantForbiddenException(singletonList("You are not allowed to create users"));
         }
 
         var employee = new Employee();
@@ -71,7 +94,7 @@ public class AccountsService {
     public List<Employee> getEmployees(int restaurantId, JwtAuthenticationToken principal) {
         var restaurant = restaurantsService.getById(restaurantId);
 
-        Set<String> roles = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+        Set<String> roles = getRolesFromJwtAuthentication(principal);
 
         if (roles.contains("ROLE_vendor_admin")) {
             return employeesRepository.findAllByRestaurant(restaurant);
@@ -97,7 +120,7 @@ public class AccountsService {
         // check if restaurant exists
         restaurantsService.getById(restaurantId);
 
-        Set<String> roles = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+        Set<String> roles = getRolesFromJwtAuthentication(principal);
 
         if (roles.contains("ROLE_vendor_admin")) {
             return findByIdWithException(employeeId);
@@ -135,5 +158,9 @@ public class AccountsService {
     private Employee findByIdWithException(int employeeId) {
         Optional<Employee> employee = employeesRepository.findById(employeeId);
         return employee.orElseThrow(() -> new NotFoundException(List.of("Employee not found with id " + employeeId)));
+    }
+
+    private Set<String> getRolesFromJwtAuthentication(JwtAuthenticationToken principal) {
+        return principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
     }
 }
