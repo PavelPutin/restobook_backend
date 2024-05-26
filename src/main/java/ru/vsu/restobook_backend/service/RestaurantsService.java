@@ -10,6 +10,7 @@ import ru.vsu.restobook_backend.repository.RestaurantsRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -47,5 +48,10 @@ public class RestaurantsService {
 
     public List<Restaurant> getAll() {
         return restaurantsRepository.findAll();
+    }
+
+    public Restaurant getById(int restaurantId) {
+        Optional<Restaurant> restaurant = restaurantsRepository.findById(restaurantId);
+        return restaurant.orElseThrow(() -> new NotFoundException(List.of("Restaurant not found with id " + restaurantId)));
     }
 }
