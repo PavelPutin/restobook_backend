@@ -54,4 +54,37 @@ public class RestaurantsService {
         Optional<Restaurant> restaurant = restaurantsRepository.findById(restaurantId);
         return restaurant.orElseThrow(() -> new NotFoundException(List.of("Restaurant not found with id " + restaurantId)));
     }
+
+    public void update(int restaurantId, RestaurantDto restaurantDto) {
+        Optional<Restaurant> restaurantOptional = restaurantsRepository.findById(restaurantId);
+        Restaurant restaurant = restaurantOptional.orElseThrow(() -> new NotFoundException(List.of("Restaurant not found with id " + restaurantId)));
+
+        List<String> validationErrors = new ArrayList<>();
+        Optional<Restaurant> byLegalName = restaurantsRepository.findByLegalEntityName(restaurantDto.legalEntityName());
+        boolean legalEntityNameUnique = byLegalName.isEmpty() || byLegalName.get().getId() == restaurantId;
+        if (!legalEntityNameUnique) {
+            validationErrors.add("Legal entity name must be unique");
+        }
+
+        Optional<Restaurant> byInn = restaurantsRepository.findByInn(restaurantDto.inn());
+        boolean innUnique = byInn.isEmpty() || byInn.get().getId() == restaurantId;
+        if (!innUnique) {
+            validationErrors.add("INN must be unique");
+        }
+
+        if (!validationErrors.isEmpty()) {
+            log.log(Level.INFO, "Can't update restaurant");
+            throw new ValidationError(validationErrors);
+        }
+
+        restaurant.setId(restaurantId);
+        restaurant.setName(restaurantDto.name());
+        restaurant.setLegalEntityName(restaurantDto.legalEntityName());
+        restaurant.setInn(restaurantDto.inn());
+        if (restaurantDto.comment().isPresent()) {
+            restaurant.setComment(restaurantDto.comment().get());
+        }
+
+        restaurantsRepository.save(restaurant);
+    }
 }

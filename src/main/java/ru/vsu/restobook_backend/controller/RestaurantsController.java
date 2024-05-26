@@ -52,4 +52,17 @@ public class RestaurantsController {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/{restaurantId}")
+    @PreAuthorize("hasAnyRole('vendor_admin')")
+    public ResponseEntity<?> updateRestaurant(@PathVariable int restaurantId, @RequestBody RestaurantDto restaurantDto) {
+        try {
+            restaurantService.update(restaurantId, restaurantDto);
+            return ResponseEntity.noContent().build();
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (ValidationError e) {
+            return ResponseEntity.badRequest().body(new ErrorDto(Instant.now(), e.getErrors()));
+        }
+    }
 }
