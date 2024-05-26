@@ -24,9 +24,7 @@ public class SecurityService {
             var login = principal.getName();
             var admin = accountsService.getEmployeeByLogin(login);
             var adminRestaurantId = admin.getRestaurant().getId();
-            if (restaurantId != adminRestaurantId) {
-                throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
-            }
+            return restaurantId == adminRestaurantId;
         }
         return false;
     }
@@ -34,6 +32,17 @@ public class SecurityService {
     public boolean isVendorAdmin(JwtAuthenticationToken principal) {
         Set<String> roles = getRolesFromJwtAuthentication(principal);
         return roles.contains("ROLE_restobook_user");
+    }
+
+    public boolean isThemSelfUser(int employeeId, JwtAuthenticationToken principal) {
+        Set<String> roles = getRolesFromJwtAuthentication(principal);
+
+        if (roles.contains("ROLE_restobook_user")) {
+            var login = principal.getName();
+            var user = accountsService.getEmployeeByLogin(login);
+            return user.getId() == employeeId;
+        }
+        return false;
     }
 
     private Set<String> getRolesFromJwtAuthentication(JwtAuthenticationToken principal) {
