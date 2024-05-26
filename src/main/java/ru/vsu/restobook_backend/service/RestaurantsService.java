@@ -44,4 +44,8 @@ public class RestaurantsService {
 
         restaurantsRepository.save(restaurant);
     }
+
+    public List<Restaurant> getAll() {
+        return restaurantsRepository.findAll();
+    }
 }
