@@ -154,6 +154,11 @@ public class AccountsService {
         throw new RestaurantForbiddenException(singletonList("You are not allowed to get user"));
     }
 
+    public Employee getEmployeeByLogin(String login) {
+        return employeesRepository.findByLogin(login).orElseThrow(() ->
+                new NotFoundException(singletonList("Employee not found with login " + login)));
+    }
+
     private Employee findByIdWithException(int employeeId) {
         Optional<Employee> employee = employeesRepository.findById(employeeId);
         return employee.orElseThrow(() -> new NotFoundException(List.of("Employee not found with id " + employeeId)));
