@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.vsu.restobook_backend.dto.ErrorDto;
 import ru.vsu.restobook_backend.dto.ReservationDto;
 import ru.vsu.restobook_backend.mapper.ReservationMapper;
@@ -20,6 +17,7 @@ import ru.vsu.restobook_backend.service.RestaurantForbiddenException;
 import ru.vsu.restobook_backend.service.ValidationError;
 
 import java.time.Instant;
+import java.util.List;
 
 @Controller
 @RequestMapping("/restaurant/{restaurantId}/reservation")
@@ -41,6 +39,22 @@ public class ReservationsController {
             return new ResponseEntity<>(result, HttpStatus.CREATED);
         } catch (ValidationError e) {
             return ResponseEntity.badRequest().body(new ErrorDto(Instant.now(), e.getErrors()));
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
+    public ResponseEntity<?> getAllReservationByRestaurant(
+            @PathVariable int restaurantId,
+            JwtAuthenticationToken principal) {
+        try {
+            List<Reservation> reservation = reservationsService.getAll(restaurantId, principal);
+            var result = reservation.stream().map(reservationMapper::toDto).toList();
+            return ResponseEntity.ok(result);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
         } catch (RestaurantForbiddenException e) {
