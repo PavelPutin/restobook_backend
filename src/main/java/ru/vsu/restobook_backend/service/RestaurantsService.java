@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Level;
 import org.springframework.stereotype.Service;
 import ru.vsu.restobook_backend.dto.RestaurantDto;
 import ru.vsu.restobook_backend.model.Restaurant;
+import ru.vsu.restobook_backend.repository.EmployeesRepository;
 import ru.vsu.restobook_backend.repository.RestaurantsRepository;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import java.util.Optional;
 public class RestaurantsService {
 
     private final RestaurantsRepository restaurantsRepository;
+    private final KeycloakService keycloakService;
+    private final EmployeesRepository employeesRepository;
 
     public void createRestaurant(RestaurantDto restaurantDto) {
         List<String> validationErrors = new ArrayList<>();
@@ -92,6 +95,14 @@ public class RestaurantsService {
         Optional<Restaurant> restaurantOptional = restaurantsRepository.findById(restaurantId);
         if (restaurantOptional.isEmpty()) {
             throw new NotFoundException(List.of("Restaurant not found with id " + restaurantId));
+        }
+        Restaurant restaurant = restaurantOptional.get();
+        for (var employee : restaurant.getEmployees()) {
+            try {
+                keycloakService.deleteEmployee(employee.getLogin());
+            } catch (RuntimeException e) {
+                log.log(Level.ERROR, "Can't delete user " + employee.getId());
+            }
         }
         restaurantsRepository.deleteById(restaurantId);
     }
