@@ -86,7 +86,7 @@ public class TablesService {
         }
 
         var tableOpt = tablesRepository.findById(tableId);
-        return tableOpt.orElseThrow(() -> new NotFoundException(List.of("Table not found with id " + restaurantId)));
+        return tableOpt.orElseThrow(() -> new NotFoundException(List.of("Table not found with id " + tableId)));
     }
 
     public Table updateTable(int restaurantId, int tableId, TableDto tableDto, JwtAuthenticationToken principal) {
