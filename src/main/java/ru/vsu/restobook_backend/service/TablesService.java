@@ -51,7 +51,7 @@ public class TablesService {
         }
 
         if (!validationErrors.isEmpty()) {
-            log.log(Level.INFO, "Can't create employee");
+            log.log(Level.INFO, "Can't create table");
             throw new ValidationError(validationErrors);
         }
 
@@ -87,5 +87,41 @@ public class TablesService {
 
         var tableOpt = tablesRepository.findById(tableId);
         return tableOpt.orElseThrow(() -> new NotFoundException(List.of("Table not found with id " + restaurantId)));
+    }
+
+    public Table updateTable(int restaurantId, int tableId, TableDto tableDto, JwtAuthenticationToken principal) {
+        var table = getTableById(restaurantId, tableId, principal);
+
+        List<String> validationErrors = new ArrayList<>();
+
+        boolean tableNumberIsPositive = tableDto.number() > 0;
+        if (!tableNumberIsPositive) {
+            validationErrors.add("Table number must be greater then zero");
+        }
+
+        boolean tableNumberUniqueInRestaurant =
+                table.getTableNumber() == tableDto.number() ||
+                        tablesRepository.findByTableNumberAndRestaurant(tableDto.number(), table.getRestaurant())
+                        .isEmpty();
+        if (!tableNumberUniqueInRestaurant) {
+            validationErrors.add("Table number must be unique in restaurant " + restaurantId);
+        }
+
+        boolean seatsNumberIsPositive = tableDto.seatsNumber() > 0;
+        if (!seatsNumberIsPositive) {
+            validationErrors.add("Table seats number must be greater then zero");
+        }
+
+        if (!validationErrors.isEmpty()) {
+            log.log(Level.INFO, "Can't create table");
+            throw new ValidationError(validationErrors);
+        }
+
+        table.setTableNumber(tableDto.number());
+        table.setSeatsNumber(tableDto.seatsNumber());
+        tableDto.state().ifPresent(table::setState);
+        tableDto.comment().ifPresent(table::setComment);
+
+        return tablesRepository.save(table);
     }
 }

@@ -76,4 +76,23 @@ public class TablesController {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
         }
     }
+
+    @PutMapping("/{tableId}")
+    @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
+    public ResponseEntity<?> updateTable(@PathVariable int restaurantId,
+                                         @PathVariable int tableId,
+                                         @RequestBody TableDto tableDto,
+                                         JwtAuthenticationToken principal) {
+        try {
+            var table = tablesService.updateTable(restaurantId, tableId, tableDto, principal);
+            var result = tableMapper.toDto(table);
+            return ResponseEntity.ok(result);
+        } catch (ValidationError e) {
+            return ResponseEntity.badRequest().body(new ErrorDto(Instant.now(), e.getErrors()));
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
+        }
+    }
 }
