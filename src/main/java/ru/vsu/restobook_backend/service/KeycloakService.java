@@ -4,9 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Level;
 import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.ClientResource;
 import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.representations.idm.ClientRepresentation;
 import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -15,8 +19,10 @@ import ru.vsu.restobook_backend.dto.ChangePasswordDto;
 import ru.vsu.restobook_backend.dto.EmployeeDto;
 import ru.vsu.restobook_backend.util.JwtUserUUIDConverter;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,11 +71,28 @@ public class KeycloakService {
         userRepresentation.setCredentials(List.of(passwordCredential));
 
         try (var response = usersResource.create(userRepresentation)) {
-            if (response.getStatus() == 200) {
+            if (response.getStatus() == 201) {
                 log.log(Level.INFO, "Employee successfully created in keycloak");
+                List<UserRepresentation> userList = keycloak.realm(realm).users().search(employeeDto.login()).stream()
+                        .filter(userRep -> userRep.getUsername().equals(employeeDto.login())).toList();
+                userRepresentation = userList.get(0);
+                assignRoleToUser(userRepresentation.getId(), employeeDto.role().get());
             } else {
                 log.log(Level.WARN, "Can't add employee to keycloak");
             }
         }
+    }
+
+    private void assignRoleToUser(String userId, String role) {
+        UsersResource usersResource = keycloak.realm(realm).users();
+        UserResource userResource = usersResource.get(userId);
+
+        //getting client
+        ClientRepresentation clientRepresentation = keycloak.realm(realm).clients().findAll().stream().filter(client -> client.getClientId().equals(clientId)).toList().get(0);
+        ClientResource clientResource = keycloak.realm(realm).clients().get(clientRepresentation.getId());
+        //getting role
+        RoleRepresentation roleRepresentation = clientResource.roles().list().stream().filter(element -> element.getName().equals(role)).toList().get(0);
+        //assigning to user
+        userResource.roles().clientLevel(clientRepresentation.getId()).add(Collections.singletonList(roleRepresentation));
     }
 }
