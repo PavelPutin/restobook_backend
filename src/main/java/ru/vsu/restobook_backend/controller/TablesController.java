@@ -53,7 +53,7 @@ public class TablesController {
             List<Table> table = tablesService.getAll(restaurantId, principal);
             var result = table.stream().map(tableMapper::toDto).toList();
             return ResponseEntity.ok(result);
-        }catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
         } catch (RestaurantForbiddenException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
@@ -70,7 +70,7 @@ public class TablesController {
             Table table = tablesService.getTableById(restaurantId, tableId, principal);
             var result = tableMapper.toDto(table);
             return ResponseEntity.ok(result);
-        }catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
         } catch (RestaurantForbiddenException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
@@ -89,6 +89,21 @@ public class TablesController {
             return ResponseEntity.ok(result);
         } catch (ValidationError e) {
             return ResponseEntity.badRequest().body(new ErrorDto(Instant.now(), e.getErrors()));
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        } catch (RestaurantForbiddenException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @DeleteMapping("/{tableId}")
+    @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
+    public ResponseEntity<?> deleteTable(@PathVariable int restaurantId,
+                                         @PathVariable int tableId,
+                                         JwtAuthenticationToken principal) {
+        try {
+            tablesService.deleteTable(restaurantId, tableId, principal);
+            return ResponseEntity.noContent().build();
         } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
         } catch (RestaurantForbiddenException e) {

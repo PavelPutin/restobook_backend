@@ -124,4 +124,9 @@ public class TablesService {
 
         return tablesRepository.save(table);
     }
+
+    public void deleteTable(int restaurantId, int tableId, JwtAuthenticationToken principal) {
+        var table = getTableById(restaurantId, tableId, principal);
+        tablesRepository.delete(table);
+    }
 }
