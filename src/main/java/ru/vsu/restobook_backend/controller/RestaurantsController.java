@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.restobook_backend.dto.ErrorDto;
 import ru.vsu.restobook_backend.dto.RestaurantDto;
+import ru.vsu.restobook_backend.mapper.RestaurantMapper;
 import ru.vsu.restobook_backend.model.Restaurant;
 import ru.vsu.restobook_backend.service.NotFoundException;
 import ru.vsu.restobook_backend.service.RestaurantsService;
@@ -23,6 +24,7 @@ import java.util.List;
 public class RestaurantsController {
 
     private final RestaurantsService restaurantService;
+    private final RestaurantMapper restaurantMapper;
 
     @PostMapping
     @PreAuthorize("hasAnyRole('vendor_admin')")
@@ -37,8 +39,9 @@ public class RestaurantsController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('vendor_admin')")
-    public ResponseEntity<List<Restaurant>> getAllRestaurants() {
-        List<Restaurant> result = restaurantService.getAll();
+    public ResponseEntity<List<RestaurantDto>> getAllRestaurants() {
+        List<Restaurant> restaurants = restaurantService.getAll();
+        List<RestaurantDto> result = restaurants.stream().map(restaurantMapper::toDto).toList();
         return ResponseEntity.ok(result);
     }
 
