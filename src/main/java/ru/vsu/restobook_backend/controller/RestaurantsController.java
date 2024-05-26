@@ -65,4 +65,15 @@ public class RestaurantsController {
             return ResponseEntity.badRequest().body(new ErrorDto(Instant.now(), e.getErrors()));
         }
     }
+
+    @DeleteMapping("/{restaurantId}")
+    @PreAuthorize("hasAnyRole('vendor_admin')")
+    public ResponseEntity<?> deleteRestaurant(@PathVariable int restaurantId) {
+        try {
+            restaurantService.delete(restaurantId);
+            return ResponseEntity.noContent().build();
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
+        }
+    }
 }

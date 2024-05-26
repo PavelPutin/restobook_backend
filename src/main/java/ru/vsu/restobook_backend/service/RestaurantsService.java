@@ -87,4 +87,12 @@ public class RestaurantsService {
 
         restaurantsRepository.save(restaurant);
     }
+
+    public void delete(int restaurantId) {
+        Optional<Restaurant> restaurantOptional = restaurantsRepository.findById(restaurantId);
+        if (restaurantOptional.isEmpty()) {
+            throw new NotFoundException(List.of("Restaurant not found with id " + restaurantId));
+        }
+        restaurantsRepository.deleteById(restaurantId);
+    }
 }
