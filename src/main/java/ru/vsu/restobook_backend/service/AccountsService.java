@@ -62,4 +62,9 @@ public class AccountsService {
             throw e;
         }
     }
+
+    public List<Employee> getEmployees(int restaurantId) {
+        var restaurant = restaurantsService.getById(restaurantId);
+        return employeesRepository.findAllByRestaurant(restaurant);
+    }
 }
