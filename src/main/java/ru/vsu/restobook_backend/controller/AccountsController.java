@@ -54,7 +54,6 @@ public class AccountsController {
     /*
     * Получить сотрудника может администратор того же ресторана*/
     @GetMapping("/{employeeId}")
-    @PreAuthorize("hasAnyRole('vendor_admin', 'restobook_admin')")
     public ResponseEntity<?> getEmployeeById(@PathVariable int restaurantId, @PathVariable int employeeId, JwtAuthenticationToken principal) {
         try {
             Employee employee = accountsService.getEmployeeById(restaurantId, employeeId, principal);

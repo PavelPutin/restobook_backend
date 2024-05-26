@@ -11,10 +11,8 @@ import ru.vsu.restobook_backend.model.Employee;
 import ru.vsu.restobook_backend.model.Restaurant;
 import ru.vsu.restobook_backend.repository.EmployeesRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonList;
 
@@ -79,25 +77,42 @@ public class AccountsService {
         // check if restaurant exists
         restaurantsService.getById(restaurantId);
 
-        Optional<GrantedAuthority> authority = principal.getAuthorities().stream().findFirst();
-        if (authority.isEmpty()) {
-            throw new RestaurantForbiddenException(singletonList("User have not authority"));
+        Set<String> roles = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+
+        if (roles.contains("ROLE_vendor_admin")) {
+            return findByIdWithException(employeeId);
         }
 
-        if (authority.get().getAuthority().equals("ROLE_restobook_admin")) {
+        if (roles.contains("ROLE_restobook_admin")) {
             var login = principal.getName();
             var admin = employeesRepository.findByLogin(login);
             if (admin.isPresent()) {
                 var adminRestaurantId = admin.get().getRestaurant().getId();
                 if (restaurantId == adminRestaurantId) {
-                    Optional<Employee> employee = employeesRepository.findById(employeeId);
-                    return employee.orElseThrow(() -> new NotFoundException(List.of("Employee not found with id " + employeeId)));
+                    return findByIdWithException(employeeId);
                 } else {
                     throw new RestaurantForbiddenException(singletonList("You are not the admin of restaurant " + restaurantId));
                 }
             }
         }
 
+        if (roles.contains("ROLE_restobook_user")) {
+            var login = principal.getName();
+            var userOpt = employeesRepository.findByLogin(login);
+            if (userOpt.isPresent()) {
+                var user = userOpt.get();
+                if (user.getId() == employeeId) {
+                    return findByIdWithException(employeeId);
+                } else {
+                    throw new RestaurantForbiddenException(singletonList("You are not this user"));
+                }
+            }
+        }
+
+        throw new RestaurantForbiddenException(singletonList("You are not allowed to get user"));
+    }
+
+    private Employee findByIdWithException(int employeeId) {
         Optional<Employee> employee = employeesRepository.findById(employeeId);
         return employee.orElseThrow(() -> new NotFoundException(List.of("Employee not found with id " + employeeId)));
     }
