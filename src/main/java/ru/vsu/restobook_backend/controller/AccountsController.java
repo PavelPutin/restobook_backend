@@ -30,8 +30,9 @@ public class AccountsController {
     @PreAuthorize("hasAnyRole('vendor_admin', 'restobook_admin')")
     public ResponseEntity<?> createEmployee(@PathVariable int restaurantId, @RequestBody EmployeeDto employeeDto, JwtAuthenticationToken principal) {
         try {
-            accountsService.createEmployee(restaurantId, employeeDto, principal);
-            return ResponseEntity.ok().build();
+            var employee = accountsService.createEmployee(restaurantId, employeeDto, principal);
+            var result = employeeMapper.toDto(employee);
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
         } catch (ValidationError e) {
             return ResponseEntity.badRequest().body(new ErrorDto(Instant.now(), e.getErrors()));
         } catch (NotFoundException e) {
@@ -76,8 +77,9 @@ public class AccountsController {
             @RequestBody EmployeeDto employeeDto,
             JwtAuthenticationToken principal) {
         try {
-            accountsService.updateEmployee(restaurantId, employeeId, employeeDto, principal);
-            return ResponseEntity.noContent().build();
+            var employee = accountsService.updateEmployee(restaurantId, employeeId, employeeDto, principal);
+            var result = employeeMapper.toDto(employee);
+            return ResponseEntity.ok(result);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
         } catch (RestaurantForbiddenException e) {

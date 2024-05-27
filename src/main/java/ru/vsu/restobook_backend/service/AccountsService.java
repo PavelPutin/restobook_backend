@@ -28,7 +28,7 @@ public class AccountsService {
     private final KeycloakService keycloakService;
 
 
-    public void createEmployee(int restaurantId, EmployeeDto employeeDto, JwtAuthenticationToken principal) {
+    public Employee createEmployee(int restaurantId, EmployeeDto employeeDto, JwtAuthenticationToken principal) {
         var restaurant = restaurantsService.getById(restaurantId);
 
         List<String> validationErrors = new ArrayList<>();
@@ -73,6 +73,7 @@ public class AccountsService {
         employee = employeesRepository.save(employee);
         try {
             keycloakService.createEmployee(employeeDto);
+            return employee;
         } catch (RuntimeException e) {
             employeesRepository.delete(employee);
             throw e;
@@ -122,7 +123,7 @@ public class AccountsService {
         return principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
     }
 
-    public void updateEmployee(int restaurantId, int employeeId, EmployeeDto employeeDto, JwtAuthenticationToken principal) {
+    public Employee updateEmployee(int restaurantId, int employeeId, EmployeeDto employeeDto, JwtAuthenticationToken principal) {
         restaurantsService.getById(restaurantId);
 
         if (!securityService.isRestaurantAdmin(restaurantId, principal)) {
@@ -138,7 +139,7 @@ public class AccountsService {
         if (employeeDto.comment().isPresent()) {
             employee.setComment(employeeDto.comment().get());
         }
-        employeesRepository.save(employee);
+        return employeesRepository.save(employee);
     }
 
     public void deleteEmployee(int restaurantId, int employeeId, JwtAuthenticationToken principal) {

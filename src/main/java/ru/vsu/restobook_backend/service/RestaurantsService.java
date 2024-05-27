@@ -22,7 +22,7 @@ public class RestaurantsService {
     private final KeycloakService keycloakService;
     private final EmployeesRepository employeesRepository;
 
-    public void createRestaurant(RestaurantDto restaurantDto) {
+    public Restaurant createRestaurant(RestaurantDto restaurantDto) {
         List<String> validationErrors = new ArrayList<>();
         boolean legalEntityNameUnique = restaurantsRepository.findByLegalEntityName(restaurantDto.legalEntityName()).isEmpty();
         if (!legalEntityNameUnique) {
@@ -46,7 +46,7 @@ public class RestaurantsService {
             restaurant.setComment(restaurantDto.comment().get());
         }
 
-        restaurantsRepository.save(restaurant);
+        return restaurantsRepository.save(restaurant);
     }
 
     public List<Restaurant> getAll() {
@@ -58,7 +58,7 @@ public class RestaurantsService {
         return restaurant.orElseThrow(() -> new NotFoundException(List.of("Restaurant not found with id " + restaurantId)));
     }
 
-    public void update(int restaurantId, RestaurantDto restaurantDto) {
+    public Restaurant update(int restaurantId, RestaurantDto restaurantDto) {
         Optional<Restaurant> restaurantOptional = restaurantsRepository.findById(restaurantId);
         Restaurant restaurant = restaurantOptional.orElseThrow(() -> new NotFoundException(List.of("Restaurant not found with id " + restaurantId)));
 
@@ -88,7 +88,7 @@ public class RestaurantsService {
             restaurant.setComment(restaurantDto.comment().get());
         }
 
-        restaurantsRepository.save(restaurant);
+        return restaurantsRepository.save(restaurant);
     }
 
     public void delete(int restaurantId) {

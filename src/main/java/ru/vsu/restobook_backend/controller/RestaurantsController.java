@@ -30,8 +30,9 @@ public class RestaurantsController {
     @PreAuthorize("hasAnyRole('vendor_admin')")
     public ResponseEntity<?> createRestaurant(@RequestBody RestaurantDto restaurantDto) {
         try {
-            restaurantService.createRestaurant(restaurantDto);
-            return ResponseEntity.ok().build();
+            var restaurant = restaurantService.createRestaurant(restaurantDto);
+            var result = restaurantMapper.toDto(restaurant);
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
         } catch (ValidationError e) {
             return ResponseEntity.badRequest().body(new ErrorDto(Instant.now(), e.getErrors()));
         }
@@ -60,8 +61,9 @@ public class RestaurantsController {
     @PreAuthorize("hasAnyRole('vendor_admin')")
     public ResponseEntity<?> updateRestaurant(@PathVariable int restaurantId, @RequestBody RestaurantDto restaurantDto) {
         try {
-            restaurantService.update(restaurantId, restaurantDto);
-            return ResponseEntity.noContent().build();
+            var restaurant = restaurantService.update(restaurantId, restaurantDto);
+            var result = restaurantMapper.toDto(restaurant);
+            return ResponseEntity.ok(result);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
         } catch (ValidationError e) {

@@ -70,24 +70,6 @@ public class ReservationsController {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
         }
     }
-//
-//    @GetMapping
-//    @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
-//    public ResponseEntity<?> getReservationsByDateTime(
-//            @PathVariable int restaurantId,
-//            @RequestParam Instant dateTime,
-//            JwtAuthenticationToken principal
-//    ) {
-//        try {
-//            List<Reservation> reservation = reservationsService.getByDateTime(restaurantId, dateTime, principal);
-//            var result = reservation.stream().map(reservationMapper::toDto).toList();
-//            return ResponseEntity.ok(result);
-//        } catch (NotFoundException e) {
-//            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
-//        } catch (RestaurantForbiddenException e) {
-//            return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.FORBIDDEN);
-//        }
-//    }
 
     @GetMapping("/{reservationId}")
     @PreAuthorize("hasAnyRole('restobook_admin', 'restobook_user')")
