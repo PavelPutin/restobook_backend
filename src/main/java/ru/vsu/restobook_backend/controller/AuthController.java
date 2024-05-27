@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.vsu.restobook_backend.dto.ChangePasswordDto;
+import ru.vsu.restobook_backend.service.AccountsService;
 import ru.vsu.restobook_backend.service.KeycloakService;
 
 @Controller
@@ -19,16 +20,15 @@ import ru.vsu.restobook_backend.service.KeycloakService;
 public class AuthController {
 
     private final KeycloakService keycloakService;
+    private final AccountsService accountsService;
 
     @PutMapping("/password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto, JwtAuthenticationToken principal) {
         try {
-            keycloakService.changePassword(changePasswordDto, principal.getToken());
+            accountsService.changePassword(changePasswordDto, principal);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            log.log(Level.ERROR, e.getMessage());
-            log.log(Level.ERROR, e.getStackTrace());
-            e.printStackTrace();
+            log.error("Failed to change password for {}", principal.getName(), e);
             return ResponseEntity.internalServerError().build();
         }
     }

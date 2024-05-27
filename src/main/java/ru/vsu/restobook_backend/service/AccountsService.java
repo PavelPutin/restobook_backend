@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Level;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
+import ru.vsu.restobook_backend.dto.ChangePasswordDto;
 import ru.vsu.restobook_backend.dto.EmployeeDto;
 import ru.vsu.restobook_backend.model.Employee;
 import ru.vsu.restobook_backend.model.Restaurant;
@@ -154,5 +155,17 @@ public class AccountsService {
         } catch (RuntimeException e) {
             log.log(Level.ERROR, "Can't delete user " + employeeId);
         }
+    }
+
+    public void changePassword(ChangePasswordDto changePasswordDto, JwtAuthenticationToken principal) {
+        var employee = getEmployeeByLogin(principal.getName());
+        keycloakService.changePassword(changePasswordDto, principal.getToken());
+        employee.setChangedPass(true);
+        employeesRepository.save(employee);
+    }
+
+    public Employee getEmployeeByLogin(String login) {
+        return employeesRepository.findByLogin(login).orElseThrow(() ->
+                new NotFoundException(singletonList("Employee not found with login " + login)));
     }
 }
