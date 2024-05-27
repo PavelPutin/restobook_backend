@@ -113,6 +113,20 @@ public class ReservationsService {
         return reservationsRepository.findAllByRestaurant(restaurant);
     }
 
+    public List<Reservation> getByDateTime(int restaurantId, Instant dateTime, JwtAuthenticationToken principal) {
+        var restaurant = restaurantsService.getById(restaurantId);
+
+        if (!securityService.isRestaurantUser(restaurantId, principal) &&
+                !securityService.isRestaurantAdmin(restaurantId, principal)) {
+            throw new RestaurantForbiddenException(singletonList("You are not the employee of restaurant " + restaurantId));
+        }
+
+        Duration findInterval = Duration.ofMinutes(60);
+        Instant start = dateTime.minus(findInterval);
+        Instant end = dateTime.plus(findInterval);
+        return reservationsRepository.findAllByStartDateTimeBetween(start, end);
+    }
+
     public Reservation getReservationById(int restaurantId, int reservationId, JwtAuthenticationToken principal) {
         restaurantsService.getById(restaurantId);
 

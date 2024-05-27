@@ -5,9 +5,11 @@ import org.springframework.stereotype.Repository;
 import ru.vsu.restobook_backend.model.Reservation;
 import ru.vsu.restobook_backend.model.Restaurant;
 
+import java.time.Instant;
 import java.util.List;
 
 @Repository
 public interface ReservationsRepository extends JpaRepository<Reservation, Integer> {
     List<Reservation> findAllByRestaurant(Restaurant restaurant);
+    List<Reservation> findAllByStartDateTimeBetween(Instant start, Instant end);
 }
