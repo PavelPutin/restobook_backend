@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.stereotype.Service;
 import ru.vsu.restobook_backend.dto.ChangePasswordDto;
 import ru.vsu.restobook_backend.dto.EmployeeDto;
+import ru.vsu.restobook_backend.mapper.EmployeeMapper;
 import ru.vsu.restobook_backend.model.Employee;
 import ru.vsu.restobook_backend.model.Restaurant;
 import ru.vsu.restobook_backend.repository.EmployeesRepository;
@@ -26,7 +27,7 @@ public class AccountsService {
     private final EmployeesRepository employeesRepository;
     private final SecurityService securityService;
     private final KeycloakService keycloakService;
-
+    private final EmployeeMapper employeeMapper;
 
     public Employee createEmployee(int restaurantId, EmployeeDto employeeDto, JwtAuthenticationToken principal) {
         var restaurant = restaurantsService.getById(restaurantId);
@@ -168,5 +169,17 @@ public class AccountsService {
     public Employee getEmployeeByLogin(String login) {
         return employeesRepository.findByLogin(login).orElseThrow(() ->
                 new NotFoundException(singletonList("Employee not found with login " + login)));
+    }
+
+    public EmployeeDto getAuthenticatedUser(JwtAuthenticationToken principal) {
+        Employee employee = getEmployeeByLogin(principal.getName());
+
+        EmployeeDto result;
+        if (securityService.isRestaurantAdmin(employee.getRestaurant().getId(), principal)) {
+            result = employeeMapper.toDto(employee, "ROLE_restobook_admin");
+        } else {
+            result = employeeMapper.toDto(employee, "ROLE_restobook_user");
+        }
+        return result;
     }
 }
