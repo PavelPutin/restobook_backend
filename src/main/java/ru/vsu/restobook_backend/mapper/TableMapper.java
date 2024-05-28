@@ -1,7 +1,6 @@
 package ru.vsu.restobook_backend.mapper;
 
 import org.springframework.stereotype.Service;
-import ru.vsu.restobook_backend.dto.ReservationDto;
 import ru.vsu.restobook_backend.dto.TableDto;
 import ru.vsu.restobook_backend.model.Reservation;
 import ru.vsu.restobook_backend.model.Table;

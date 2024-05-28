@@ -10,7 +10,6 @@ import ru.vsu.restobook_backend.model.Table;
 import ru.vsu.restobook_backend.repository.TablesRepository;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
@@ -113,7 +112,7 @@ public class TablesService {
         }
 
         if (!validationErrors.isEmpty()) {
-            log.log(Level.INFO, "Can't create table");
+            log.log(Level.INFO, "Can't update table");
             throw new ValidationError(validationErrors);
         }
 

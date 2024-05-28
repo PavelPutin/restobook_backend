@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EmployeesRepository extends JpaRepository<Employee, Integer> {
+public interface AccountsRepository extends JpaRepository<Employee, Integer> {
     Optional<Employee> findByLogin(String login);
     List<Employee> findAllByRestaurant(Restaurant restaurant);
 }

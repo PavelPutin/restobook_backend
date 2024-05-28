@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Level;
 import org.springframework.stereotype.Service;
 import ru.vsu.restobook_backend.dto.RestaurantDto;
 import ru.vsu.restobook_backend.model.Restaurant;
-import ru.vsu.restobook_backend.repository.EmployeesRepository;
+import ru.vsu.restobook_backend.repository.AccountsRepository;
 import ru.vsu.restobook_backend.repository.RestaurantsRepository;
 
 import java.util.ArrayList;
@@ -20,7 +20,6 @@ public class RestaurantsService {
 
     private final RestaurantsRepository restaurantsRepository;
     private final KeycloakService keycloakService;
-    private final EmployeesRepository employeesRepository;
 
     public Restaurant createRestaurant(RestaurantDto restaurantDto) {
         List<String> validationErrors = new ArrayList<>();

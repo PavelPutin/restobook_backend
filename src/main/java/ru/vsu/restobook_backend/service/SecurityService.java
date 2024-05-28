@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import ru.vsu.restobook_backend.model.Employee;
-import ru.vsu.restobook_backend.repository.EmployeesRepository;
+import ru.vsu.restobook_backend.repository.AccountsRepository;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,7 +16,7 @@ import static java.util.Collections.singletonList;
 @AllArgsConstructor
 public class SecurityService {
     private final RestaurantsService restaurantsService;
-    private final EmployeesRepository employeesRepository;
+    private final AccountsRepository accountsRepository;
 
     public boolean isRestaurantAdmin(int restaurantId, JwtAuthenticationToken principal) {
         restaurantsService.getById(restaurantId);
@@ -65,7 +65,7 @@ public class SecurityService {
     }
 
     public Employee getEmployeeByLogin(String login) {
-        return employeesRepository.findByLogin(login).orElseThrow(() ->
+        return accountsRepository.findByLogin(login).orElseThrow(() ->
                 new NotFoundException(singletonList("Employee not found with login " + login)));
     }
 }

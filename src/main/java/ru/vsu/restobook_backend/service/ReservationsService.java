@@ -2,13 +2,11 @@ package ru.vsu.restobook_backend.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Level;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import ru.vsu.restobook_backend.dto.ReservationDto;
-import ru.vsu.restobook_backend.dto.TableDto;
 import ru.vsu.restobook_backend.model.Reservation;
 import ru.vsu.restobook_backend.model.ReservationState;
 import ru.vsu.restobook_backend.model.Table;
@@ -44,27 +42,7 @@ public class ReservationsService {
             throw new RestaurantForbiddenException(singletonList("You are not the employee of restaurant " + restaurantId));
         }
 
-        List<String> validationErrors = new ArrayList<>();
-
-        boolean clientPhoneNumberLengthLE30 = reservationDto.clientPhoneNumber().length() <= 30;
-        if (!clientPhoneNumberLengthLE30) {
-            validationErrors.add("Client phone number length must be less or equal to 30 characters");
-        }
-
-        boolean clientNameLengthLE512 = reservationDto.clientName().length() <= 512;
-        if (!clientNameLengthLE512) {
-            validationErrors.add("Client name length must be less or equal to 512 characters");
-        }
-
-        boolean durationIntervalPositive = reservationDto.durationIntervalMinutes() > 0;
-        if (!durationIntervalPositive) {
-            validationErrors.add("Duration interval must be positive");
-        }
-
-        if (!validationErrors.isEmpty()) {
-            log.log(Level.INFO, "Can't create reservation");
-            throw new ValidationError(validationErrors);
-        }
+        validateReservationDto(reservationDto);
 
         var reservation = new Reservation();
         reservation.setPersonsNumber(reservationDto.personsNumber());
@@ -114,7 +92,7 @@ public class ReservationsService {
     }
 
     public List<Reservation> getByDateTime(int restaurantId, Instant dateTime, JwtAuthenticationToken principal) {
-        var restaurant = restaurantsService.getById(restaurantId);
+        restaurantsService.getById(restaurantId);
 
         if (!securityService.isRestaurantUser(restaurantId, principal) &&
                 !securityService.isRestaurantAdmin(restaurantId, principal)) {
@@ -144,27 +122,7 @@ public class ReservationsService {
         var restaurant = restaurantsService.getById(restaurantId);
         var reservation = getReservationById(restaurantId, reservationId, principal);
 
-        List<String> validationErrors = new ArrayList<>();
-
-        boolean clientPhoneNumberLengthLE30 = reservationDto.clientPhoneNumber().length() <= 30;
-        if (!clientPhoneNumberLengthLE30) {
-            validationErrors.add("Client phone number length must be less or equal to 30 characters");
-        }
-
-        boolean clientNameLengthLE512 = reservationDto.clientName().length() <= 512;
-        if (!clientNameLengthLE512) {
-            validationErrors.add("Client name length must be less or equal to 512 characters");
-        }
-
-        boolean durationIntervalPositive = reservationDto.durationIntervalMinutes() > 0;
-        if (!durationIntervalPositive) {
-            validationErrors.add("Duration interval must be positive");
-        }
-
-        if (!validationErrors.isEmpty()) {
-            log.log(Level.INFO, "Can't create reservation");
-            throw new ValidationError(validationErrors);
-        }
+        validateReservationDto(reservationDto);
 
         reservation.setPersonsNumber(reservationDto.personsNumber());
         reservation.setClientPhoneNumber(reservationDto.clientPhoneNumber());
@@ -205,6 +163,30 @@ public class ReservationsService {
             table.getReservations().add(reservation);
         }
         return reservationsRepository.save(reservation);
+    }
+
+    private void validateReservationDto(ReservationDto reservationDto) {
+        List<String> validationErrors = new ArrayList<>();
+
+        boolean clientPhoneNumberLengthLE30 = reservationDto.clientPhoneNumber().length() <= 30;
+        if (!clientPhoneNumberLengthLE30) {
+            validationErrors.add("Client phone number length must be less or equal to 30 characters");
+        }
+
+        boolean clientNameLengthLE512 = reservationDto.clientName().length() <= 512;
+        if (!clientNameLengthLE512) {
+            validationErrors.add("Client name length must be less or equal to 512 characters");
+        }
+
+        boolean durationIntervalPositive = reservationDto.durationIntervalMinutes() > 0;
+        if (!durationIntervalPositive) {
+            validationErrors.add("Duration interval must be positive");
+        }
+
+        if (!validationErrors.isEmpty()) {
+            log.log(Level.INFO, "Can't create reservation");
+            throw new ValidationError(validationErrors);
+        }
     }
 
     @Transactional

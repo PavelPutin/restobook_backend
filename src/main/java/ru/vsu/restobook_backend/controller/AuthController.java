@@ -2,7 +2,6 @@ package ru.vsu.restobook_backend.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.Level;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -14,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.vsu.restobook_backend.dto.ChangePasswordDto;
 import ru.vsu.restobook_backend.dto.EmployeeDto;
 import ru.vsu.restobook_backend.dto.ErrorDto;
-import ru.vsu.restobook_backend.model.Employee;
 import ru.vsu.restobook_backend.service.AccountsService;
-import ru.vsu.restobook_backend.service.KeycloakService;
 import ru.vsu.restobook_backend.service.NotFoundException;
 
 import java.time.Instant;
@@ -27,7 +24,6 @@ import java.time.Instant;
 @Log4j2
 public class AuthController {
 
-    private final KeycloakService keycloakService;
     private final AccountsService accountsService;
 
     @PutMapping("/password")

@@ -6,7 +6,6 @@ import ru.vsu.restobook_backend.model.Reservation;
 import ru.vsu.restobook_backend.model.Table;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ReservationMapper {

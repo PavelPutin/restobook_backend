@@ -10,10 +10,8 @@ import ru.vsu.restobook_backend.dto.ChangePasswordDto;
 import ru.vsu.restobook_backend.dto.EmployeeDto;
 import ru.vsu.restobook_backend.mapper.EmployeeMapper;
 import ru.vsu.restobook_backend.model.Employee;
-import ru.vsu.restobook_backend.model.Restaurant;
-import ru.vsu.restobook_backend.repository.EmployeesRepository;
+import ru.vsu.restobook_backend.repository.AccountsRepository;
 
-import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,7 +22,7 @@ import static java.util.Collections.singletonList;
 @Log4j2
 public class AccountsService {
     private final RestaurantsService restaurantsService;
-    private final EmployeesRepository employeesRepository;
+    private final AccountsRepository accountsRepository;
     private final SecurityService securityService;
     private final KeycloakService keycloakService;
     private final EmployeeMapper employeeMapper;
@@ -33,7 +31,7 @@ public class AccountsService {
         var restaurant = restaurantsService.getById(restaurantId);
 
         List<String> validationErrors = new ArrayList<>();
-        boolean loginUnique = employeesRepository.findByLogin(employeeDto.login()).isEmpty();
+        boolean loginUnique = accountsRepository.findByLogin(employeeDto.login()).isEmpty();
         if (!loginUnique) {
             validationErrors.add("Login must be unique");
         }
@@ -71,12 +69,12 @@ public class AccountsService {
         }
         employee.setChangedPass(false);
         employee.setRestaurant(restaurant);
-        employee = employeesRepository.save(employee);
+        employee = accountsRepository.save(employee);
         try {
             keycloakService.createEmployee(employeeDto);
             return employee;
         } catch (RuntimeException e) {
-            employeesRepository.delete(employee);
+            accountsRepository.delete(employee);
             throw e;
         }
     }
@@ -85,11 +83,11 @@ public class AccountsService {
         var restaurant = restaurantsService.getById(restaurantId);
 
         if (securityService.isVendorAdmin(principal)) {
-            return employeesRepository.findAllByRestaurant(restaurant);
+            return accountsRepository.findAllByRestaurant(restaurant);
         }
 
         if (securityService.isRestaurantAdmin(restaurantId, principal)) {
-            return employeesRepository.findAllByRestaurant(restaurant);
+            return accountsRepository.findAllByRestaurant(restaurant);
         } else {
             throw new RestaurantForbiddenException(singletonList("You are not allowed to get users"));
         }
@@ -116,7 +114,7 @@ public class AccountsService {
     }
 
     private Employee findByIdWithException(int employeeId) {
-        Optional<Employee> employee = employeesRepository.findById(employeeId);
+        Optional<Employee> employee = accountsRepository.findById(employeeId);
         return employee.orElseThrow(() -> new NotFoundException(List.of("Employee not found with id " + employeeId)));
     }
 
@@ -140,7 +138,7 @@ public class AccountsService {
         if (employeeDto.comment().isPresent()) {
             employee.setComment(employeeDto.comment().get());
         }
-        return employeesRepository.save(employee);
+        return accountsRepository.save(employee);
     }
 
     public void deleteEmployee(int restaurantId, int employeeId, JwtAuthenticationToken principal) {
@@ -153,7 +151,7 @@ public class AccountsService {
         var toDelete = findByIdWithException(employeeId);
         try {
             keycloakService.deleteEmployee(toDelete.getLogin());
-            employeesRepository.delete(toDelete);
+            accountsRepository.delete(toDelete);
         } catch (RuntimeException e) {
             log.log(Level.ERROR, "Can't delete user " + employeeId);
         }
@@ -163,11 +161,11 @@ public class AccountsService {
         var employee = getEmployeeByLogin(principal.getName());
         keycloakService.changePassword(changePasswordDto, principal.getToken());
         employee.setChangedPass(true);
-        employeesRepository.save(employee);
+        accountsRepository.save(employee);
     }
 
     public Employee getEmployeeByLogin(String login) {
-        return employeesRepository.findByLogin(login).orElseThrow(() ->
+        return accountsRepository.findByLogin(login).orElseThrow(() ->
                 new NotFoundException(singletonList("Employee not found with login " + login)));
     }
 
