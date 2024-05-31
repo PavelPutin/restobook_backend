@@ -84,9 +84,7 @@ public class RestaurantsService {
         restaurant.setName(restaurantDto.name());
         restaurant.setLegalEntityName(restaurantDto.legalEntityName());
         restaurant.setInn(restaurantDto.inn());
-        if (restaurantDto.comment().isPresent()) {
-            restaurant.setComment(restaurantDto.comment().get());
-        }
+        restaurant.setComment(restaurantDto.comment().orElse(null));
 
         return restaurantsRepository.save(restaurant);
     }

@@ -173,7 +173,7 @@ public class ReservationsService {
         reservation.setDuration(Duration.ofMinutes(reservationDto.durationIntervalMinutes()));
         reservation.setEmployeeFullName(reservationDto.employeeFullName());
         reservationDto.state().ifPresent(reservation::setState);
-        reservationDto.comment().ifPresent(reservation::setReservationComment);
+        reservation.setReservationComment(reservationDto.comment().orElse(null));
         reservation.setRestaurant(restaurant);
 
         List<Integer> tableIds = reservationDto.tableIds().orElse(emptyList());
