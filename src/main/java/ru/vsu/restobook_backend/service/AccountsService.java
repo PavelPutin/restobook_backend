@@ -60,7 +60,7 @@ public class AccountsService {
         }
 
         var employee = new Employee();
-        employee.setLogin(employeeDto.login());
+        employee.setLogin(employeeDto.login().toLowerCase());
         employee.setSurname(employeeDto.surname());
         if (employeeDto.patronymic().isPresent()) {
             employee.setPatronymic(employeeDto.patronymic().get());
