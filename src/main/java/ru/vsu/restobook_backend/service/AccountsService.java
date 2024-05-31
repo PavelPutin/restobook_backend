@@ -134,13 +134,10 @@ public class AccountsService {
         var employee = findByIdWithException(employeeId);
         employee.setName(employeeDto.name());
         employee.setSurname(employeeDto.surname());
-        if (employeeDto.patronymic().isPresent()) {
-            employee.setPatronymic(employeeDto.patronymic().get());
-        }
-        if (employeeDto.comment().isPresent()) {
-            employee.setComment(employeeDto.comment().get());
-        }
-        return employeesRepository.save(employee);
+        employee.setPatronymic(employeeDto.patronymic().orElse(null));
+        employee.setComment(employeeDto.comment().orElse(null));
+        employeesRepository.save(employee);
+        return employee;
     }
 
     public void deleteEmployee(int restaurantId, int employeeId, JwtAuthenticationToken principal) {
