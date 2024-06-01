@@ -31,8 +31,8 @@ public class Table {
     @ManyToMany
     @JoinTable(
             name = "table_reservation",
-            joinColumns = @JoinColumn(name = "table_id"),
-            inverseJoinColumns = @JoinColumn(name = "reservation_id")
+            joinColumns = @JoinColumn(name = "table_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "reservation_id", referencedColumnName = "id")
     )
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
