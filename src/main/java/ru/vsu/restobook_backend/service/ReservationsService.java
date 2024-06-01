@@ -194,15 +194,15 @@ public class ReservationsService {
         for (var table : reservation.getTables()) {
             if (!tableIds.contains(table.getId())) {
                 table.getReservations().remove(reservation);
+                tablesRepository.save(table);
             }
         }
-
-        tablesRepository.saveAll(reservation.getTables());
 
         reservation.setTables(tables);
 
         for (var table : tables) {
             table.getReservations().add(reservation);
+            tablesRepository.save(table);
         }
         return reservationsRepository.save(reservation);
     }

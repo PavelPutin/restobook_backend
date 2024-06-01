@@ -41,7 +41,7 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant;
-    @ManyToMany
+    @ManyToMany(mappedBy = "reservations")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Table> tables;
