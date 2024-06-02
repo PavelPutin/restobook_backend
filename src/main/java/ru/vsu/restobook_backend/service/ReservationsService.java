@@ -110,7 +110,10 @@ public class ReservationsService {
             throw new RestaurantForbiddenException(singletonList("You are not the employee of restaurant " + restaurantId));
         }
 
-        return reservationsRepository.findAllByRestaurant(restaurant);
+        return reservationsRepository.findAllByRestaurant(restaurant)
+                .stream()
+                .sorted(this::compareReservations)
+                .toList();
     }
 
     public List<Reservation> getByDateTime(int restaurantId, Instant dateTime, JwtAuthenticationToken principal) {
@@ -124,7 +127,10 @@ public class ReservationsService {
         Duration findInterval = Duration.ofMinutes(60);
         Instant start = dateTime.minus(findInterval);
         Instant end = dateTime.plus(findInterval);
-        return reservationsRepository.findAllByStartDateTimeBetween(start, end);
+        return reservationsRepository.findAllByStartDateTimeBetween(start, end)
+                .stream()
+                .sorted(this::compareReservations)
+                .toList();
     }
 
     public Reservation getReservationById(int restaurantId, int reservationId, JwtAuthenticationToken principal) {
@@ -213,5 +219,14 @@ public class ReservationsService {
         reservation.getTables().forEach(t -> t.getReservations().remove(reservation));
         tablesRepository.saveAll(reservation.getTables());
         reservationsRepository.delete(reservation);
+    }
+
+    private int compareReservations(Reservation a, Reservation b) {
+        if (a.getState() == ReservationState.CLOSED && b.getState() != ReservationState.CLOSED) return 1;
+        if (a.getState() == ReservationState.WAITING && b.getState() == ReservationState.CLOSED) return -1;
+        if (a.getState() == ReservationState.WAITING && b.getState() == ReservationState.OPEN) return 1;
+        if (a.getState() == ReservationState.OPEN && b.getState() != ReservationState.OPEN) return -1;
+        if (a.getStartDateTime().isBefore(b.getStartDateTime())) return 1;
+        return Integer.compare(b.getId(), a.getId());
     }
 }
