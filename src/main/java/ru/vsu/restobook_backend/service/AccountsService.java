@@ -33,7 +33,9 @@ public class AccountsService {
         var restaurant = restaurantsService.getById(restaurantId);
 
         List<String> validationErrors = new ArrayList<>();
-        boolean loginUnique = employeesRepository.findByLogin(employeeDto.login()).isEmpty();
+        boolean loginUnique =
+                employeesRepository.findByLogin(employeeDto.login()).isEmpty() &&
+                keycloakService.getUserByLogin(employeeDto.login()).isEmpty();
         if (!loginUnique) {
             validationErrors.add("Login must be unique");
         }
