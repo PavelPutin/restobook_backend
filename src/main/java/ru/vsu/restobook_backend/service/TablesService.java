@@ -10,7 +10,6 @@ import ru.vsu.restobook_backend.model.Table;
 import ru.vsu.restobook_backend.repository.TablesRepository;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
@@ -74,7 +73,7 @@ public class TablesService {
             throw new RestaurantForbiddenException(singletonList("You are not the employee of restaurant " + restaurantId));
         }
 
-        return tablesRepository.findAllByRestaurant(restaurant);
+        return tablesRepository.findAllByRestaurantOrderByTableNumber(restaurant);
     }
 
     public Table getTableById(int restaurantId, int tableId, JwtAuthenticationToken principal) {
