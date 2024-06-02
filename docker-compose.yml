@@ -40,6 +40,7 @@ services:
       - "8181:8181"
     depends_on:
       - restobook-db
+      - keycloak
     environment:
       POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME}
       POSTGRES_DB: ${POSTGRES_DB}
@@ -53,6 +54,11 @@ services:
       KEYCLOAK_ADMIN_REALM: ${KEYCLOAK_ADMIN_REALM}
     volumes:
       - logs:/logs
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "https://restobook.fun/restobook-api/health" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   restobook-db:
     container_name: restobook-db
@@ -103,7 +109,7 @@ services:
       KEYCLOAK_LOGLEVEL: DEBUG
 
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://0.0.0.0:8081/realms/master" ]
+      test: [ "CMD", "curl", "-f", "${KEYCLOAK_URL}/realms/master" ]
       start_period: 10s
       interval: 30s
       retries: 3
