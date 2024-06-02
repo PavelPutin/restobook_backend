@@ -27,6 +27,8 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
     private String principleAttribute;
     @Value("${spring.jwt.auth.converter.resource-id}")
     private String resourceId;
+    @Value("${spring.jwt.auth.converter.admin-id}")
+    private String adminId;
 
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt jwt) {
@@ -55,10 +57,13 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
         }
         resourceAccess = jwt.getClaim("resource_access");
 
-        if (resourceAccess.get(resourceId) == null) {
+        if (resourceAccess.get(resourceId) != null) {
+            resource = (Map<String, Object>) resourceAccess.get(resourceId);
+        } else if (resourceAccess.get(adminId) != null) {
+            resource = (Map<String, Object>) resourceAccess.get(adminId);
+        } else {
             return Set.of();
         }
-        resource = (Map<String, Object>) resourceAccess.get(resourceId);
 
         resourceRoles = (Collection<String>) resource.get("roles");
         return resourceRoles
