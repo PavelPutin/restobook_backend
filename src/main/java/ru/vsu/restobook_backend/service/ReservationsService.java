@@ -182,12 +182,12 @@ public class ReservationsService {
         reservation.setReservationComment(reservationDto.comment().orElse(null));
         reservation.setRestaurant(restaurant);
 
-        List<Integer> tableIds = reservationDto.tableIds().orElse(emptyList());
-        List<Table> tables = tablesRepository.findAllByIdIn(tableIds);
-        Set<Integer> actualId = tables.stream().map(Table::getId).collect(Collectors.toSet());
+        List<Integer> updatingTableIds = reservationDto.tableIds().orElse(emptyList());
+        List<Table> updatingTables = tablesRepository.findAllByIdIn(updatingTableIds);
+        Set<Integer> actualId = updatingTables.stream().map(Table::getId).collect(Collectors.toSet());
 
         List<String> notFoundMessages = new ArrayList<>();
-        for (int id : tableIds) {
+        for (int id : updatingTableIds) {
             if (!actualId.contains(id)) {
                 notFoundMessages.add("Not found table with id " + id);
             }
@@ -197,19 +197,23 @@ public class ReservationsService {
             throw new NotFoundException(notFoundMessages);
         }
 
-        for (var table : reservation.getTables()) {
-            if (!tableIds.contains(table.getId())) {
+        for (var iter = reservation.getTables().iterator(); iter.hasNext();) {
+            var table = iter.next();
+            if (!updatingTableIds.contains(table.getId())) {
                 table.getReservations().remove(reservation);
                 tablesRepository.save(table);
+                iter.remove();
             }
         }
 
-        reservation.setTables(tables);
-
-        for (var table : tables) {
-            table.getReservations().add(reservation);
-            tablesRepository.save(table);
+        for (var table : updatingTables) {
+            if (!reservation.getTables().contains(table)) {
+                table.getReservations().add(reservation);
+                tablesRepository.save(table);
+                reservation.getTables().add(table);
+            }
         }
+
         return reservationsRepository.save(reservation);
     }
 
