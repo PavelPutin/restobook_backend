@@ -29,6 +29,8 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
     private String resourceId;
     @Value("${spring.jwt.auth.converter.admin-id}")
     private String adminId;
+    @Value("${keycloak.adminClientId}")
+    private String adminClientId;
 
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt jwt) {
@@ -59,8 +61,8 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
 
         if (resourceAccess.get(resourceId) != null) {
             resource = (Map<String, Object>) resourceAccess.get(resourceId);
-        } else if (resourceAccess.get(adminId) != null) {
-            resource = (Map<String, Object>) resourceAccess.get(adminId);
+        } else if (resourceAccess.get(adminClientId) != null) {
+            resource = (Map<String, Object>) resourceAccess.get(adminClientId);
         } else {
             return Set.of();
         }
