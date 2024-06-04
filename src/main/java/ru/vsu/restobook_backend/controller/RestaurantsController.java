@@ -50,7 +50,8 @@ public class RestaurantsController {
     @PreAuthorize("hasAnyRole('vendor_admin')")
     public ResponseEntity<?> getRestaurant(@PathVariable int restaurantId) {
         try {
-            Restaurant result = restaurantService.getById(restaurantId);
+            Restaurant restaurant = restaurantService.getById(restaurantId);
+            var result = restaurantMapper.toDto(restaurant);
             return ResponseEntity.ok(result);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(new ErrorDto(Instant.now(), e.getErrors()), HttpStatus.NOT_FOUND);
