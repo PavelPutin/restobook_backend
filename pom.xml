@@ -10,7 +10,7 @@
     </parent>
     <groupId>ru.vsu</groupId>
     <artifactId>restobook_backend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.9.0</version>
     <name>restobook_backend</name>
     <description>restobook_backend</description>
     <properties>
