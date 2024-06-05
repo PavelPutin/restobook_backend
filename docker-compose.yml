@@ -25,7 +25,7 @@ services:
       - ./nginx/conf.d/bundle.crt:/etc/ssl/bundle.crt
       - ./nginx/conf.d/private.key:/etc/ssl/private.key
       - ./docs:/www/data
-      - ${PATH_TO_WEB}:/www/vendor/admin
+      - ${PATH_TO_WEB}:/www/vendor/admin/web
     networks:
       - restobook-net
 
