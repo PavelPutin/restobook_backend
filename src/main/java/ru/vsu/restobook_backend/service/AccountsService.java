@@ -31,7 +31,9 @@ public class AccountsService {
         var restaurant = restaurantsService.getById(restaurantId);
 
         List<String> validationErrors = new ArrayList<>();
-        boolean loginUnique = accountsRepository.findByLogin(employeeDto.login()).isEmpty();
+        boolean loginUnique =
+                accountsRepository.findByLogin(employeeDto.login()).isEmpty() &&
+                keycloakService.getUserByLogin(employeeDto.login()).isEmpty();
         if (!loginUnique) {
             validationErrors.add("Login must be unique");
         }
@@ -58,7 +60,7 @@ public class AccountsService {
         }
 
         var employee = new Employee();
-        employee.setLogin(employeeDto.login());
+        employee.setLogin(employeeDto.login().toLowerCase());
         employee.setSurname(employeeDto.surname());
         if (employeeDto.patronymic().isPresent()) {
             employee.setPatronymic(employeeDto.patronymic().get());
@@ -132,13 +134,10 @@ public class AccountsService {
         var employee = findByIdWithException(employeeId);
         employee.setName(employeeDto.name());
         employee.setSurname(employeeDto.surname());
-        if (employeeDto.patronymic().isPresent()) {
-            employee.setPatronymic(employeeDto.patronymic().get());
-        }
-        if (employeeDto.comment().isPresent()) {
-            employee.setComment(employeeDto.comment().get());
-        }
-        return accountsRepository.save(employee);
+        employee.setPatronymic(employeeDto.patronymic().orElse(null));
+        employee.setComment(employeeDto.comment().orElse(null));
+        accountsRepository.save(employee);
+        return employee;
     }
 
     public void deleteEmployee(int restaurantId, int employeeId, JwtAuthenticationToken principal) {

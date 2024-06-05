@@ -25,6 +25,7 @@ services:
       - ./nginx/conf.d/bundle.crt:/etc/ssl/bundle.crt
       - ./nginx/conf.d/private.key:/etc/ssl/private.key
       - ./docs:/www/data
+      - ${PATH_TO_WEB}:/www/vendor/admin/web
     networks:
       - restobook-net
 
@@ -40,6 +41,7 @@ services:
       - "8181:8181"
     depends_on:
       - restobook-db
+      - keycloak
     environment:
       POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME}
       POSTGRES_DB: ${POSTGRES_DB}
@@ -47,12 +49,17 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       KEYCLOAK_URL: ${KEYCLOAK_URL}
       KEYCLOAK_REALM: ${KEYCLOAK_REALM}
-      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
-      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
-      KEYCLOAK_API_USER: ${KEYCLOAK_API_USER}
-      KEYCLOAK_API_USER_PASSWORD: ${KEYCLOAK_API_USER_PASSWORD}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_CLIENT: ${KEYCLOAK_ADMIN_CLIENT}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_ADMIN_REALM: ${KEYCLOAK_ADMIN_REALM}
     volumes:
       - logs:/logs
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "https://restobook.fun/restobook-api/health" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   restobook-db:
     container_name: restobook-db
@@ -103,7 +110,7 @@ services:
       KEYCLOAK_LOGLEVEL: DEBUG
 
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://0.0.0.0:8081/realms/master" ]
+      test: [ "CMD", "curl", "-f", "${KEYCLOAK_URL}/realms/master" ]
       start_period: 10s
       interval: 30s
       retries: 3

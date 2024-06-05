@@ -106,7 +106,7 @@ public class KeycloakService {
         userResource.roles().clientLevel(clientRepresentation.getId()).add(Collections.singletonList(roleRepresentation));
     }
 
-    private Optional<UserRepresentation> getUserByLogin(String login) {
+    public Optional<UserRepresentation> getUserByLogin(String login) {
         return keycloak.realm(realm).users().search(login).stream()
                 .filter(userRep -> userRep.getUsername().equals(login)).findFirst();
     }

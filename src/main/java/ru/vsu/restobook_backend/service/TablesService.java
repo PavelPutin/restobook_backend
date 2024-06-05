@@ -73,7 +73,7 @@ public class TablesService {
             throw new RestaurantForbiddenException(singletonList("You are not the employee of restaurant " + restaurantId));
         }
 
-        return tablesRepository.findAllByRestaurant(restaurant);
+        return tablesRepository.findAllByRestaurantOrderByTableNumber(restaurant);
     }
 
     public Table getTableById(int restaurantId, int tableId, JwtAuthenticationToken principal) {
@@ -120,6 +120,7 @@ public class TablesService {
         table.setSeatsNumber(tableDto.seatsNumber());
         tableDto.state().ifPresent(table::setState);
         tableDto.comment().ifPresent(table::setComment);
+        table.setComment(tableDto.comment().orElse(null));
 
         return tablesRepository.save(table);
     }

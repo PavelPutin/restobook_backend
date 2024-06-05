@@ -88,7 +88,10 @@ public class ReservationsService {
             throw new RestaurantForbiddenException(singletonList("You are not the employee of restaurant " + restaurantId));
         }
 
-        return reservationsRepository.findAllByRestaurant(restaurant);
+        return reservationsRepository.findAllByRestaurant(restaurant)
+                .stream()
+                .sorted(this::compareReservations)
+                .toList();
     }
 
     public List<Reservation> getByDateTime(int restaurantId, Instant dateTime, JwtAuthenticationToken principal) {
@@ -102,7 +105,10 @@ public class ReservationsService {
         Duration findInterval = Duration.ofMinutes(60);
         Instant start = dateTime.minus(findInterval);
         Instant end = dateTime.plus(findInterval);
-        return reservationsRepository.findAllByStartDateTimeBetween(start, end);
+        return reservationsRepository.findAllByStartDateTimeBetween(start, end)
+                .stream()
+                .sorted(this::compareReservations)
+                .toList();
     }
 
     public Reservation getReservationById(int restaurantId, int reservationId, JwtAuthenticationToken principal) {
@@ -131,15 +137,15 @@ public class ReservationsService {
         reservation.setDuration(Duration.ofMinutes(reservationDto.durationIntervalMinutes()));
         reservation.setEmployeeFullName(reservationDto.employeeFullName());
         reservationDto.state().ifPresent(reservation::setState);
-        reservationDto.comment().ifPresent(reservation::setReservationComment);
+        reservation.setReservationComment(reservationDto.comment().orElse(null));
         reservation.setRestaurant(restaurant);
 
-        List<Integer> tableIds = reservationDto.tableIds().orElse(emptyList());
-        List<Table> tables = tablesRepository.findAllByIdIn(tableIds);
-        Set<Integer> actualId = tables.stream().map(Table::getId).collect(Collectors.toSet());
+        List<Integer> updatingTableIds = reservationDto.tableIds().orElse(emptyList());
+        List<Table> updatingTables = tablesRepository.findAllByIdIn(updatingTableIds);
+        Set<Integer> actualId = updatingTables.stream().map(Table::getId).collect(Collectors.toSet());
 
         List<String> notFoundMessages = new ArrayList<>();
-        for (int id : tableIds) {
+        for (int id : updatingTableIds) {
             if (!actualId.contains(id)) {
                 notFoundMessages.add("Not found table with id " + id);
             }
@@ -149,19 +155,23 @@ public class ReservationsService {
             throw new NotFoundException(notFoundMessages);
         }
 
-        for (var table : reservation.getTables()) {
-            if (!tableIds.contains(table.getId())) {
+        for (var iter = reservation.getTables().iterator(); iter.hasNext();) {
+            var table = iter.next();
+            if (!updatingTableIds.contains(table.getId())) {
                 table.getReservations().remove(reservation);
+                tablesRepository.save(table);
+                iter.remove();
             }
         }
 
-        tablesRepository.saveAll(reservation.getTables());
-
-        reservation.setTables(tables);
-
-        for (var table : tables) {
-            table.getReservations().add(reservation);
+        for (var table : updatingTables) {
+            if (!reservation.getTables().contains(table)) {
+                table.getReservations().add(reservation);
+                tablesRepository.save(table);
+                reservation.getTables().add(table);
+            }
         }
+
         return reservationsRepository.save(reservation);
     }
 
@@ -195,5 +205,14 @@ public class ReservationsService {
         reservation.getTables().forEach(t -> t.getReservations().remove(reservation));
         tablesRepository.saveAll(reservation.getTables());
         reservationsRepository.delete(reservation);
+    }
+
+    private int compareReservations(Reservation a, Reservation b) {
+        if (a.getState() == ReservationState.CLOSED && b.getState() != ReservationState.CLOSED) return 1;
+        if (a.getState() == ReservationState.WAITING && b.getState() == ReservationState.CLOSED) return -1;
+        if (a.getState() == ReservationState.WAITING && b.getState() == ReservationState.OPEN) return 1;
+        if (a.getState() == ReservationState.OPEN && b.getState() != ReservationState.OPEN) return -1;
+        if (a.getStartDateTime().isBefore(b.getStartDateTime())) return 1;
+        return Integer.compare(b.getId(), a.getId());
     }
 }
