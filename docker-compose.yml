@@ -119,9 +119,9 @@ services:
     healthcheck:
       test: [
         "CMD-SHELL",
-        'exec 3<>/dev/tcp/restobook.fun/8443; echo -e "GET https://restobook.fun/realms/master HTTP/1.1\nhost: restobook.fun:8443\n" >&3; timeout --preserve-status 1 cat <&3 | grep -m 1 status | grep -m 1 UP; ERROR=$?; exec 3<&-; exec 3>&-; exit $ERROR'
+        'exec 3<>/dev/tcp/restobook.fun/8443; echo -e "GET /health HTTP/1.1\nhost: restobook.fun:8443\n" >&3; timeout --preserve-status 1 cat <&3 | grep -m 1 status | grep -m 1 UP; ERROR=$?; exec 3<&-; exec 3>&-; exit $ERROR'
       ]
-      interval: 5s
+      interval: 40s
       timeout: 5s
       retries: 5
     depends_on:
