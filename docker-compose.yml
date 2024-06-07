@@ -44,6 +44,8 @@ services:
         condition: service_healthy
       keycloak:
         condition: service_healthy
+      nginx:
+        condition: service_started
     environment:
       POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME}
       POSTGRES_DB: ${POSTGRES_DB}
@@ -60,10 +62,7 @@ services:
     volumes:
       - logs:/logs
     healthcheck:
-      test: [
-        "CMD-SHELL",
-        'exec 3<>/dev/tcp/localhost/8080; echo -e "GET /health/ready HTTP/1.1\nhost: localhost:8080\n" >&3; timeout --preserve-status 1 cat <&3 | grep -m 1 status | grep -m 1 UP; ERROR=$?; exec 3<&-; exec 3>&-; exit $ERROR'
-      ]
+      test: [ "CMD", "curl", "-f", "https://restobook.fun/restobook-api/health" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -118,11 +117,13 @@ services:
       KEYCLOAK_LOGLEVEL: DEBUG
 
     healthcheck:
-      test: [ "CMD", "curl", "-f", "${KEYCLOAK_URL}/realms/master" ]
-      start_period: 10s
-      interval: 30s
-      retries: 3
+      test: [
+        "CMD-SHELL",
+        'exec 3<>/dev/tcp/restobook.fun/8443; echo -e "GET https://restobook.fun/realms/master HTTP/1.1\nhost: restobook.fun:8443\n" >&3; timeout --preserve-status 1 cat <&3 | grep -m 1 status | grep -m 1 UP; ERROR=$?; exec 3<&-; exec 3>&-; exit $ERROR'
+      ]
+      interval: 5s
       timeout: 5s
+      retries: 5
     depends_on:
       restobook-db:
         condition: service_healthy
