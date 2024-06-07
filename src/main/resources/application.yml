@@ -36,3 +36,5 @@ keycloak:
   adminClientId: ${KEYCLOAK_ADMIN_CLIENT}
   username: ${KEYCLOAK_ADMIN}
   password: ${KEYCLOAK_ADMIN_PASSWORD}
+  masterIssuer: ${KEYCLOAK_MASTER_ISSUER}
+  restaurantIssuer: ${KEYCLOAK_RESTAURANT_ISSUER}

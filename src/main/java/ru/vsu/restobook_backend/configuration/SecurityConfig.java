@@ -1,6 +1,7 @@
 package ru.vsu.restobook_backend.configuration;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +31,12 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    @Value("${keycloak.masterIssuer}")
+    private String masterIssuer;
+
+    @Value("${keycloak.restaurantIssuer}")
+    private String restaurantIssuer;
+
     private final Map<String, AuthenticationManager> authenticationManagers = new HashMap<>();
     private final JwtAuthConverter jwtAuthConverter;
     private final JwtIssuerAuthenticationManagerResolver authenticationManagerResolver
@@ -38,8 +45,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         List<String> issuers = new ArrayList<>();
-        issuers.add("https://restobook.fun/realms/master");
-        issuers.add("https://restobook.fun/realms/restaurant");
+        issuers.add(masterIssuer);
+        issuers.add(restaurantIssuer);
 
         issuers.forEach(issuer -> addManager(authenticationManagers, issuer));
 
