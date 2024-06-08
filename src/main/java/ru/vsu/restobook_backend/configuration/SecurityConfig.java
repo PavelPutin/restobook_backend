@@ -63,7 +63,6 @@ public class SecurityConfig {
                 );
         http
                 .sessionManagement(management -> management.sessionCreationPolicy(STATELESS));
-        System.out.println("CONFIGURED");
         return http.build();
     }
 
