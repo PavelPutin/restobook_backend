@@ -62,8 +62,8 @@ services:
     volumes:
       - logs:/logs
     healthcheck:
-      test: [ "CMD", "curl", "-f", "https://restobook.fun/restobook-api/health" ]
-      interval: 5s
+      test: [ "CMD-SHELL", "curl", "-f", "https://restobook-api/restobook-api/health" ]
+      interval: 10s
       timeout: 5s
       retries: 5
 
