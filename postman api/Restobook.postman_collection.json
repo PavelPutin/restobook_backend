@@ -1,0 +1,1097 @@
+{
+	"info": {
+		"_postman_id": "7b9c0126-bd37-4681-bfb5-bd3418ffad21",
+		"name": "Restobook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24264376"
+	},
+	"item": [
+		{
+			"name": "Restaurant",
+			"item": [
+				{
+					"name": "Get all restaurants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrLXlnT1pFckUyREtjdmZ2czMyeThNOUVyVFR3WEdsY1oweHhYa0FoTEVNIn0.eyJleHAiOjE3MTc0MzYwODksImlhdCI6MTcxNzQzNjAyOSwianRpIjoiZjJjMDBmY2ItNmE1Yi00NWY1LWI0ZmUtN2Q0MzU5YTJhMDFjIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9tYXN0ZXIiLCJhdWQiOlsibWFzdGVyLXJlYWxtIiwicmVzdGF1cmFudC1yZWFsbSIsImFjY291bnQiXSwic3ViIjoiN2VjYThiODgtMTlmMi00Nzg1LWIxYzgtZDUwY2M2MmUwZGI4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoidmVuZG9yX2NsaWVudCIsInNlc3Npb25fc3RhdGUiOiI1Y2ZhMDhkNy04ZWY1LTQzYjktYmMzYi1jOTdhY2Y1NGQ0M2EiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIi8qIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJjcmVhdGUtcmVhbG0iLCJkZWZhdWx0LXJvbGVzLW1hc3RlciIsIm9mZmxpbmVfYWNjZXNzIiwiYWRtaW4iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7InZlbmRvcl9jbGllbnQiOnsicm9sZXMiOlsidmVuZG9yX2FkbWluIl19LCJtYXN0ZXItcmVhbG0iOnsicm9sZXMiOlsidmlldy1yZWFsbSIsInZpZXctaWRlbnRpdHktcHJvdmlkZXJzIiwibWFuYWdlLWlkZW50aXR5LXByb3ZpZGVycyIsImltcGVyc29uYXRpb24iLCJjcmVhdGUtY2xpZW50IiwibWFuYWdlLXVzZXJzIiwicXVlcnktcmVhbG1zIiwidmlldy1hdXRob3JpemF0aW9uIiwicXVlcnktY2xpZW50cyIsInF1ZXJ5LXVzZXJzIiwibWFuYWdlLWV2ZW50cyIsIm1hbmFnZS1yZWFsbSIsInZpZXctZXZlbnRzIiwidmlldy11c2VycyIsInZpZXctY2xpZW50cyIsIm1hbmFnZS1hdXRob3JpemF0aW9uIiwibWFuYWdlLWNsaWVudHMiLCJxdWVyeS1ncm91cHMiXX0sInJlc3RhdXJhbnQtcmVhbG0iOnsicm9sZXMiOlsidmlldy1yZWFsbSIsInZpZXctaWRlbnRpdHktcHJvdmlkZXJzIiwibWFuYWdlLWlkZW50aXR5LXByb3ZpZGVycyIsImltcGVyc29uYXRpb24iLCJjcmVhdGUtY2xpZW50IiwibWFuYWdlLXVzZXJzIiwicXVlcnktcmVhbG1zIiwidmlldy1hdXRob3JpemF0aW9uIiwicXVlcnktY2xpZW50cyIsInF1ZXJ5LXVzZXJzIiwibWFuYWdlLWV2ZW50cyIsIm1hbmFnZS1yZWFsbSIsInZpZXctZXZlbnRzIiwidmlldy11c2VycyIsInZpZXctY2xpZW50cyIsIm1hbmFnZS1hdXRob3JpemF0aW9uIiwibWFuYWdlLWNsaWVudHMiLCJxdWVyeS1ncm91cHMiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6IjVjZmEwOGQ3LThlZjUtNDNiOS1iYzNiLWM5N2FjZjU0ZDQzYSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoia2NfYWRtaW4ifQ.ejysLeNneImpN6pdWWbT_-av1GMPSKRpEqG4k51mapGT6HDB-sefxgGW_EBVN1Wo-FKWW3F0iBgtfdHZYZV8WTEZ_971ufdwvt1CW6p6Q5D4G4X3O0Zzqdj43O22Kwr41pk-HIITzgpTX5r9Tj0fspT2W1PoGtLSwbokS5ts-zKPOehog38Dobxkrj0tuaIBqu5PjLkVZCn9RE-iTBIjEowLcpJ3ouu6g0KDpU80dKzCzt4Vkd2B7Qm2VdsWk3BP_0GsGYn-TRJ0IuHdixwfad_sN6HQMEaBBBp5IQVTJ33efsU7yP9N01XF8bBfmnopQLUVJVcaBgoAw905UvHd7Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrLXlnT1pFckUyREtjdmZ2czMyeThNOUVyVFR3WEdsY1oweHhYa0FoTEVNIn0.eyJleHAiOjE3MTg4MTUwMjcsImlhdCI6MTcxODgxNDk2NywianRpIjoiYmNiOWJjMTctZTcxOC00YjA3LWI3MzgtMTM1N2UxZDc0MjBhIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9tYXN0ZXIiLCJhdWQiOlsibWFzdGVyLXJlYWxtIiwicmVzdGF1cmFudC1yZWFsbSIsImFjY291bnQiXSwic3ViIjoiN2VjYThiODgtMTlmMi00Nzg1LWIxYzgtZDUwY2M2MmUwZGI4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoidmVuZG9yX2NsaWVudCIsInNlc3Npb25fc3RhdGUiOiJkNTc4NjAwOC02ZTI5LTRhNGItOGQ0NC04ODFlZjQ5OTNjMWUiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImNyZWF0ZS1yZWFsbSIsImRlZmF1bHQtcm9sZXMtbWFzdGVyIiwib2ZmbGluZV9hY2Nlc3MiLCJhZG1pbiIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsidmVuZG9yX2NsaWVudCI6eyJyb2xlcyI6WyJ2ZW5kb3JfYWRtaW4iXX0sIm1hc3Rlci1yZWFsbSI6eyJyb2xlcyI6WyJ2aWV3LXJlYWxtIiwidmlldy1pZGVudGl0eS1wcm92aWRlcnMiLCJtYW5hZ2UtaWRlbnRpdHktcHJvdmlkZXJzIiwiaW1wZXJzb25hdGlvbiIsImNyZWF0ZS1jbGllbnQiLCJtYW5hZ2UtdXNlcnMiLCJxdWVyeS1yZWFsbXMiLCJ2aWV3LWF1dGhvcml6YXRpb24iLCJxdWVyeS1jbGllbnRzIiwicXVlcnktdXNlcnMiLCJtYW5hZ2UtZXZlbnRzIiwibWFuYWdlLXJlYWxtIiwidmlldy1ldmVudHMiLCJ2aWV3LXVzZXJzIiwidmlldy1jbGllbnRzIiwibWFuYWdlLWF1dGhvcml6YXRpb24iLCJtYW5hZ2UtY2xpZW50cyIsInF1ZXJ5LWdyb3VwcyJdfSwicmVzdGF1cmFudC1yZWFsbSI6eyJyb2xlcyI6WyJ2aWV3LXJlYWxtIiwidmlldy1pZGVudGl0eS1wcm92aWRlcnMiLCJtYW5hZ2UtaWRlbnRpdHktcHJvdmlkZXJzIiwiaW1wZXJzb25hdGlvbiIsImNyZWF0ZS1jbGllbnQiLCJtYW5hZ2UtdXNlcnMiLCJxdWVyeS1yZWFsbXMiLCJ2aWV3LWF1dGhvcml6YXRpb24iLCJxdWVyeS1jbGllbnRzIiwicXVlcnktdXNlcnMiLCJtYW5hZ2UtZXZlbnRzIiwibWFuYWdlLXJlYWxtIiwidmlldy1ldmVudHMiLCJ2aWV3LXVzZXJzIiwidmlldy1jbGllbnRzIiwibWFuYWdlLWF1dGhvcml6YXRpb24iLCJtYW5hZ2UtY2xpZW50cyIsInF1ZXJ5LWdyb3VwcyJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiZDU3ODYwMDgtNmUyOS00YTRiLThkNDQtODgxZWY0OTkzYzFlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJrY19hZG1pbiJ9.R1oY-AWSeSHiCTBNlthXXDXJ9IGAT9ZItXqL_8eBuMOAqUIpBh6cOFYGp_-9vv9yCjmpgup1Xglfb_Wln4cP8i-VQBmWXTYKXiQaaAn5xne0YBCRI1SUMY9RxKy_Mcr2C-czSIuAQAuCb4nJ1EtjFIHHeYMPSFcjdM3MGEuF7ORSG9TeGLZn0dbD3Ahs9cpB708i6itpBbF9pCjZGl025fsdRCa44ZnOoVMUwpsvBWLE8GA1b06j5-iX75qKMUsHrg-vuUlgYOCyx8NdzYShWlifk2kTjTLeSoQsRwrKmdT4zauGhz332PMhDcA2-2h4ycL4xvv1IlJuWCxyOigO4Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrLXlnT1pFckUyREtjdmZ2czMyeThNOUVyVFR3WEdsY1oweHhYa0FoTEVNIn0.eyJleHAiOjE3MTczNTQzNzYsImlhdCI6MTcxNzM1NDMxNiwianRpIjoiOTgyYTNlYWUtYWFkYS00Y2Q1LTg3NGMtZGM4ZTI2NzM2N2M2IiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI3ZWNhOGI4OC0xOWYyLTQ3ODUtYjFjOC1kNTBjYzYyZTBkYjgiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiYzY2NjUxZjItN2U5ZC00MzgxLTlmMjktNzAwNWM3YzQyOGI0IiwiYWNyIjoiMSIsInJlc291cmNlX2FjY2VzcyI6eyJhZG1pbi1jbGkiOnsicm9sZXMiOlsidmVuZG9yX2FkbWluIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiYzY2NjUxZjItN2U5ZC00MzgxLTlmMjktNzAwNWM3YzQyOGI0IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJrY19hZG1pbiJ9.mtKgoZqq2SgmXkne1UCCtfyz5IUfR9FNcsr6pAaIAzJDOPmlDaYK-mXQtGFKzxXsz-GquFOLunweDVBqjp2HQqqhvD7mdpASvASdKmfCZ2BfdrUsjyuET6gRNPZKi8259Usi_MUphnNZxMLFYvp-5aevQFpRQWjaNU9HGDDthNaQjrh4UUsC-ov4ZlGcmg6ZqwUwH-duvdCjPM1n2PZWtRTRABfaiFr1VzW2mrgJdiuiO8GDojL07r5yCiPKXHv-jDh7ughRwa3x26lANxEZPNBbzOJXJRs2ISmTxUAD0u8ME0s2amMx17dMXWalZwsKctEAIuSJe_R6bWWaRI0Pww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Ресторан для всех\",\r\n    \"legalEntityName\": \"ООО Накормим студентов\",\r\n    \"inn\": \"991154917952\",\r\n    \"comment\": \"Да, мы существуем и кормим студентов только лучшей едой!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrLXlnT1pFckUyREtjdmZ2czMyeThNOUVyVFR3WEdsY1oweHhYa0FoTEVNIn0.eyJleHAiOjE3MTczOTU2MzUsImlhdCI6MTcxNzM5NTU3NSwianRpIjoiYTRjOTA4ODQtZGUzNC00ZmFmLWFhMWEtNGJmZTc2N2E4NjBjIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI3ZWNhOGI4OC0xOWYyLTQ3ODUtYjFjOC1kNTBjYzYyZTBkYjgiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiN2Q1N2RkODMtMjY4MC00MmFmLWIwMDEtZjExMjI5MDEzOTAwIiwiYWNyIjoiMSIsInJlc291cmNlX2FjY2VzcyI6eyJhZG1pbi1jbGkiOnsicm9sZXMiOlsidmVuZG9yX2FkbWluIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiN2Q1N2RkODMtMjY4MC00MmFmLWIwMDEtZjExMjI5MDEzOTAwIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJrY19hZG1pbiJ9.H3Wy2_ZlBJbUTR7YRMyEiGjaG7-7r_r8Ln8GFN8UPSFKzQ0KUtukbedr1zVyEIur8qIFdYkYA7a30mvBx3sw82uF2a9JkkIYtWFefvNASPsCttvxxIr_5EMI07yxeL76LdyksNCgZT98c5mxW0r9euj2uavhM8at6ugoxckysx651mG5ps8OtrhbLFhD_dYFNOecQMiCDxX97FXyZXUDtz6k4UTu7hm6obXG-VnxIadhu0V2sEEwuQMwWUMswImUuunc9a-QqEct3VgGYIEqzJ4jH6B34H_TZNg1vrkIJXx2G2mQpFO9Lv04Y4C7SrEaSU-OxWT6hdssHrqc1F_2Lw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"Ресторан для студентов\",\r\n\"legalEntityName\": \"ООО Вкусно и точка\",\r\n\"inn\": \"291154917953\",\r\n\"comment\": \"Да, мы существуем и кормим студентов только лучшей едой!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrLXlnT1pFckUyREtjdmZ2czMyeThNOUVyVFR3WEdsY1oweHhYa0FoTEVNIn0.eyJleHAiOjE3MTczNTM2NTUsImlhdCI6MTcxNzM1MzU5NSwianRpIjoiYmFlMDAyYTQtMzhiNS00MDQ5LTkxYTAtNWYyNWUxOWQxYzg2IiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI3ZWNhOGI4OC0xOWYyLTQ3ODUtYjFjOC1kNTBjYzYyZTBkYjgiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiOGUwMTIwNDktM2M2MS00NjY1LWE2OWUtZmE0NzA1YTk1NmVkIiwiYWNyIjoiMSIsInJlc291cmNlX2FjY2VzcyI6eyJhZG1pbi1jbGkiOnsicm9sZXMiOlsidmVuZG9yX2FkbWluIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiOGUwMTIwNDktM2M2MS00NjY1LWE2OWUtZmE0NzA1YTk1NmVkIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJrY19hZG1pbiJ9.Q--42KlEDA694AvtwwcpxePHJx-2OhMJeAODIdOTzwiyaGqRaPknvB9oZUhdQjQR0A9AsVQh78RjEJU8UbBaNatk07Vdn2YYkS7hC41EW6gQ9_y_SnXC3_f-jTjSrdn2bdi4nVZ3a-8zRVGWEB3HNMwO5NAACdy69K9yf8RjiEZUKRH5EX4dxwIwOzivQEESQDP_p_q-xyks6XUWx-2fTpgiPTTUEwvNgGBfZJTUNnRIsHvjmeZecziQx6lMKy4CfKNopCWrcbu4LoQ1PbUBx1OVLqsLRNyVz1lvJLqrkmJFbOjQqCx-YCZJlY28CfQT9G3tFEXsBmZMh4NllMEBQA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Demo",
+			"item": [
+				{
+					"name": "health",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/health",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Admin Token restobook-rest-api",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzdV9qTnh1bUJaTGhqNXpzLU1aOGNVaXlZS1pmc0xldTVBRVJNQzluTHRjIn0.eyJleHAiOjE3MTY3Mzc5NDUsImlhdCI6MTcxNjczNzY0NSwianRpIjoiZWFiOWFhYTUtN2IwNS00MGY2LWI1MDktYmFjNjY4YjZhNWZlIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjIwODczYmZkLTQ4MWItNGU1ZC1hYWI5LWRlNjAyNjM0MjkxYyIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiI3MWViNGJlNy0wNzBhLTQ1MWMtODkzMC02NmM5Mzc5ZmM3OWIiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiI3MWViNGJlNy0wNzBhLTQ1MWMtODkzMC02NmM5Mzc5ZmM3OWIiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluX3BfYSJ9.Ytq98X3TPmCTUYzS11gSM5ntxSUzgZhPDMJUxHkQfJnC4fRuFOy5qRFUPXeCSuv_03Pz-iEmPcRb46P9Dp7jZXF6qh7j_y3UYW1NsX6i9vkmOB53I2tf7qr7Q4iBpB86qgpABXHvcIl0TYtWcc9xIcvzFybzyjgUksanTJofKYpxna6_WTu9ydU_yY81bhJv5LFAf6lGuJhT7BHyTh4nN3yeiQBIqgElh2lCvJaQHMe9r9l50Ixl0R392RNsvHjI8Kz-IoazGxJMIl9isLF5xKuIyA5j5cUG0NHOz3H5jYmhssJv5_tlb55TK9Fhzq1HgqfYyFK5bCGlwOtnu7NLGg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "restobook-rest-api",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "putin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwerty",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "YXgYE054ui30G3JlXLF44avB8eN3JsIt",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://restobook.fun/realms/restaurant/protocol/openid-connect/token",
+							"protocol": "https",
+							"host": [
+								"restobook",
+								"fun"
+							],
+							"path": [
+								"realms",
+								"restaurant",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTg0NTg3ODIsImlhdCI6MTcxODQ1ODQ4MiwianRpIjoiNTM0MGYyNTUtMTk3Ni00MWExLWEwNTItOTkwOWZhMWIyYThmIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImFmNmFhZTY1LTk4OTItNDMzMC04NjUxLTVmZTM2NGY3NjRkYiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJmZWU0ZTgzNC0wZDM5LTQ4MDItYWZjZS1mYjA2YWExYmJkZWYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJmZWU0ZTgzNC0wZDM5LTQ4MDItYWZjZS1mYjA2YWExYmJkZWYiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.cjbUuj-DSKNfN0HQ98oqDaQYGRWsGsM7x-M5kt4n9_rdC6RFy81Dps_ZTkObgmwtc59V0N7MZ46mpfT8qDEvisDtKPWbKH4To9Pvdg0DUBPwVfigHaPhQT38ny-YoMMZ1ETqkhfnIXRyi6kWQnygn3hnkZkKifrIjGGwSFSfI4QhUY4_SRqbe8pppclwJhfOZDVsau5NtQXj_hSezaut9LAf-3NEhufjDEi0Fk__HBJsvtpRTyGgQAWHQZw4jNf6JVqgjVe_cmJigHqtXx17zLt8n1V1-11Zk1fDd4sK-YMMm90JScVYZ90VreO7drfTX9Nlv147T1V52_ehes72XQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"qwerty\",\r\n    \"newPassword\": \"qwerty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCALHOST}}/restobook-api/auth/password",
+							"host": [
+								"{{LOCALHOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"auth",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh user token",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "restobook-rest-api",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4NGZlNjUwNy05OTQ3LTQ3YmUtYjhmOS0xNmZjZjZkMWJiNDIifQ.eyJleHAiOjE3MTY5MDMyOTksImlhdCI6MTcxNjkwMTQ5OSwianRpIjoiNjA2ZWYwZjgtNjU0Mi00YjE1LThmMjktYTkwMDJhNTM1NDVjIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50Iiwic3ViIjoiZmViNTA1MWUtYTEzMi00OTJkLWFlMjItNTc1YTAzMjAzOWQ0IiwidHlwIjoiUmVmcmVzaCIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiI0NmM3MDQ0NS1lNWJkLTRmZTAtYmFhZi00OGRkMjk2ODZjOGMiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiI0NmM3MDQ0NS1lNWJkLTRmZTAtYmFhZi00OGRkMjk2ODZjOGMifQ.6PgqbDSqeN1oESeUKMngVXGffrUhQk7i1R8Ra9HCLQfOlkyJUw2A-ckjqfxALCtflZboLgBXSHrKpMkxDhY29A",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "m7Qpp1SGt63mdnrw9EDVdYBZ3TwH3t0W",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://restobook.fun/realms/restaurant/protocol/openid-connect/token",
+							"protocol": "https",
+							"host": [
+								"restobook",
+								"fun"
+							],
+							"path": [
+								"realms",
+								"restaurant",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Token restobook-rest-api",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "restobook-rest-api",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "BoriS",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwerty",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "m7Qpp1SGt63mdnrw9EDVdYBZ3TwH3t0W",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://restobook.fun/realms/restaurant/protocol/openid-connect/token",
+							"protocol": "https",
+							"host": [
+								"restobook",
+								"fun"
+							],
+							"path": [
+								"realms",
+								"restaurant",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTczMzEyMjgsImlhdCI6MTcxNzMzMDkyOCwianRpIjoiYTRkMjA2MGMtZWUwZS00NWFjLThhYjktNDA0NDhkMWQzYzVkIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjQ2ODU2Yjc3LWMxYTQtNDU5Ni04NjYyLTE0NDI2NDMxOTEyMiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiIzNjYwZjg1NC1lOWUzLTQxNDQtYmY2ZC01OGMyMjdlYzM1MzYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiIzNjYwZjg1NC1lOWUzLTQxNDQtYmY2ZC01OGMyMjdlYzM1MzYiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.W4szKeJePGIBeLi80fQ5a0KLsH6kjkcVBSTDYDJu6p8DjLUFFGA0zFL2ZxBSZfdr_QsUqSUb-phw9UGIihsUSpx0oWbMyWvnGwVASTwS51tco2gbtE2ZZG7CaqW5b478wCwTVIT8CZ3OXcIN1WOyt-2y-W25-0gteYCIItq6zKQctI_LLlnXcuTYeGH6eiMcmvt24B0bDIhDXC3yRMz9b6pqNZvs6C0SI1616gJNTX4H_YuSK5EVYvXf_sn4AB9n5SygGu-YbHtHB2BfKx_rS6sRuBzfkbhsVQD_TOvwebN3SqBQouDNEYbhhosXK6J7cJRFsDWivVP354_zNxrXDQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCALHOST}}/restobook-api/auth/me",
+							"host": [
+								"{{LOCALHOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REAL vendor admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "vendor_client",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "kc_admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "kc_pass",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://restobook.fun/realms/master/protocol/openid-connect/token",
+							"protocol": "https",
+							"host": [
+								"restobook",
+								"fun"
+							],
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "Create employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTg4NzAxMTQsImlhdCI6MTcxODg2OTgxNCwianRpIjoiMDE2NmNkNGMtZjllYi00YTkwLTgwMTMtNmU1OTQ2OTFkZTU0IiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImFmNmFhZTY1LTk4OTItNDMzMC04NjUxLTVmZTM2NGY3NjRkYiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJmNzNiYzNiOS02ZTliLTRiNjQtYjQ3ZS04YzMwMTdkNzE5YTgiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJmNzNiYzNiOS02ZTliLTRiNjQtYjQ3ZS04YzMwMTdkNzE5YTgiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.PW9PdbElZRBw6xDkj21mqhIAzmHYi1T5edsdnt2-K07jxte2KeqyASZyKyXSaazSjP2xslrnZCbyAeZveOw79s8XBkjeKMKsuL0Bjp_eOti9sjKMo41C7uC_d8KDdXD00YufzYsAm2Gv-i8Z1TqXuTSqsg4ghkc2RzkypxvxyBT0o8R0B7wmIO1U0aYklOTWcnaTAIZ1QFswB7LxAJohnf0nn20J7DbPlrIDhJ2HeFnH7SX_GrjW0234tt6YvE0GDsT0Yfvlh62fwAfAmvSW554kjzCSPvZPcaEtYfITFJIKZFrNaxkhLqVOIzpy48VDCs0B_B9IGr8z1T_CXAC5Jg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"frolov\",\r\n    \"name\": \"Макар\",\r\n    \"surname\": \"Фролов\",\r\n    \"changedPassword\": false,\r\n    \"restaurantId\": 2,\r\n    \"password\": \"qwerty\",\r\n    \"role\": \"restobook_user\",\r\n    \"comment\": \"Отличный сотрудник!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/2/employee",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"2",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get employees by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTg4NzAxMTQsImlhdCI6MTcxODg2OTgxNCwianRpIjoiMDE2NmNkNGMtZjllYi00YTkwLTgwMTMtNmU1OTQ2OTFkZTU0IiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImFmNmFhZTY1LTk4OTItNDMzMC04NjUxLTVmZTM2NGY3NjRkYiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJmNzNiYzNiOS02ZTliLTRiNjQtYjQ3ZS04YzMwMTdkNzE5YTgiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJmNzNiYzNiOS02ZTliLTRiNjQtYjQ3ZS04YzMwMTdkNzE5YTgiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.PW9PdbElZRBw6xDkj21mqhIAzmHYi1T5edsdnt2-K07jxte2KeqyASZyKyXSaazSjP2xslrnZCbyAeZveOw79s8XBkjeKMKsuL0Bjp_eOti9sjKMo41C7uC_d8KDdXD00YufzYsAm2Gv-i8Z1TqXuTSqsg4ghkc2RzkypxvxyBT0o8R0B7wmIO1U0aYklOTWcnaTAIZ1QFswB7LxAJohnf0nn20J7DbPlrIDhJ2HeFnH7SX_GrjW0234tt6YvE0GDsT0Yfvlh62fwAfAmvSW554kjzCSPvZPcaEtYfITFJIKZFrNaxkhLqVOIzpy48VDCs0B_B9IGr8z1T_CXAC5Jg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/2/employee",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"2",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get employee by id and by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzdV9qTnh1bUJaTGhqNXpzLU1aOGNVaXlZS1pmc0xldTVBRVJNQzluTHRjIn0.eyJleHAiOjE3MTY3MTk5NDgsImlhdCI6MTcxNjcxOTY0OCwianRpIjoiYzQ5NGFiYjItOTYyYy00MmEwLWIxNmQtZjJkMjYxOTk5MjVmIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjYxMjI5ZjIzLTU2NzktNGQ4Zi1iNWI1LTVmOTE3NTEwYmY3YyIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJjYjcyYmNkNC05MjM5LTQ4YzktYmJlNy01ZDAxYTE2NWNiNDAiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjYjcyYmNkNC05MjM5LTQ4YzktYmJlNy01ZDAxYTE2NWNiNDAiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InRva2FyZXYifQ.kmeBcEyrGFMCjVWsgavfdTA1r9zby5By5EgLG0aPbkGZ1lgDPQOOZC7rQ2A8ICZJczlUG0zmIheZcHRKM1fg7o5xf9N8AHlYd4xDrpO397-RqpZ_YY7IFcWAOXIX6uk8FMF3_9Bm9r6WFpD1Fb96t_YGiaSsOf1uAPENmWvxBWiX-foi_mLXdOqDO1V-gfrXduunV2ZCaLKMIkVjLkqnzdFGlzC0Jp3s2N0JNIrs7q9GF_i6z43UaRE5dPAHvGerO_JxXU6HPJcw7qGs-d_G-saYmLFr8EG8FNBjvMSpsVo5_yKDyVW7pJ3_QIOr6A-8cv_6rtMxlx6bQHOO4SQkrQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/1/employee/11",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"1",
+								"employee",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update employee by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzdV9qTnh1bUJaTGhqNXpzLU1aOGNVaXlZS1pmc0xldTVBRVJNQzluTHRjIn0.eyJleHAiOjE3MTY3MTk5NDgsImlhdCI6MTcxNjcxOTY0OCwianRpIjoiYzQ5NGFiYjItOTYyYy00MmEwLWIxNmQtZjJkMjYxOTk5MjVmIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjYxMjI5ZjIzLTU2NzktNGQ4Zi1iNWI1LTVmOTE3NTEwYmY3YyIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJjYjcyYmNkNC05MjM5LTQ4YzktYmJlNy01ZDAxYTE2NWNiNDAiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjYjcyYmNkNC05MjM5LTQ4YzktYmJlNy01ZDAxYTE2NWNiNDAiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InRva2FyZXYifQ.kmeBcEyrGFMCjVWsgavfdTA1r9zby5By5EgLG0aPbkGZ1lgDPQOOZC7rQ2A8ICZJczlUG0zmIheZcHRKM1fg7o5xf9N8AHlYd4xDrpO397-RqpZ_YY7IFcWAOXIX6uk8FMF3_9Bm9r6WFpD1Fb96t_YGiaSsOf1uAPENmWvxBWiX-foi_mLXdOqDO1V-gfrXduunV2ZCaLKMIkVjLkqnzdFGlzC0Jp3s2N0JNIrs7q9GF_i6z43UaRE5dPAHvGerO_JxXU6HPJcw7qGs-d_G-saYmLFr8EG8FNBjvMSpsVo5_yKDyVW7pJ3_QIOr6A-8cv_6rtMxlx6bQHOO4SQkrQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 15,\r\n    \"login\": \"stepan\",\r\n    \"surname\": \"Стёпкин\",\r\n    \"name\": \"Степан\",\r\n    \"password\": null,\r\n    \"role\": null,\r\n    \"patronymic\": \"Андреевич\",\r\n    \"comment\": null,\r\n    \"changedPassword\": false,\r\n    \"restaurantId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/1/employee/11",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"1",
+								"employee",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete employee by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTg4NzAxMTQsImlhdCI6MTcxODg2OTgxNCwianRpIjoiMDE2NmNkNGMtZjllYi00YTkwLTgwMTMtNmU1OTQ2OTFkZTU0IiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImFmNmFhZTY1LTk4OTItNDMzMC04NjUxLTVmZTM2NGY3NjRkYiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJmNzNiYzNiOS02ZTliLTRiNjQtYjQ3ZS04YzMwMTdkNzE5YTgiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJmNzNiYzNiOS02ZTliLTRiNjQtYjQ3ZS04YzMwMTdkNzE5YTgiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.PW9PdbElZRBw6xDkj21mqhIAzmHYi1T5edsdnt2-K07jxte2KeqyASZyKyXSaazSjP2xslrnZCbyAeZveOw79s8XBkjeKMKsuL0Bjp_eOti9sjKMo41C7uC_d8KDdXD00YufzYsAm2Gv-i8Z1TqXuTSqsg4ghkc2RzkypxvxyBT0o8R0B7wmIO1U0aYklOTWcnaTAIZ1QFswB7LxAJohnf0nn20J7DbPlrIDhJ2HeFnH7SX_GrjW0234tt6YvE0GDsT0Yfvlh62fwAfAmvSW554kjzCSPvZPcaEtYfITFJIKZFrNaxkhLqVOIzpy48VDCs0B_B9IGr8z1T_CXAC5Jg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/2/employee/15",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"2",
+								"employee",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Table",
+			"item": [
+				{
+					"name": "Create table",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTczOTMyMTgsImlhdCI6MTcxNzM5MjkxOCwianRpIjoiNDU5NmFkZTItOWNiZS00MzRhLWJkMTMtMmVjZGUxMjJhMDU2IiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImFmNmFhZTY1LTk4OTItNDMzMC04NjUxLTVmZTM2NGY3NjRkYiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiI3ZjU0M2ViOS1iY2Y3LTRkYmUtYTlmNC05ODkyYTU4NGI5NzEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiI3ZjU0M2ViOS1iY2Y3LTRkYmUtYTlmNC05ODkyYTU4NGI5NzEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.OGrCs7EZ9hjR51_oG_IjaOQJifUJvwMZAqYP_w1l8yeEmgS9KmuyL9YoZt61qqHskxuHhBviayvA3UKOHcgokVb-GEtnXLDYJvfObnj4M3IICpqT1Hvk6JoLKvO-1wiMTc5P6DUilPVbVagAh0O14MGJdJn1ixv_vOcVtBb9W9kZKL3BSuEKKW3UvfFWfsZmIGmqFb6SZRWDyj_tE58tCo_Kel8hR7_PEb5hk-2OkJVjKSsUEJIuRy0XYjfXSXvVwUfX9HRTsuhpM_-wGxB7lj-q6-gBuSS1L5yOB2zPj9yHiogRo84GxXoXxoE2QzxtvDdsCuwPsJNVTVzJ3u4QXQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"number\": 2,\r\n  \"seatsNumber\": 5,\r\n  \"state\": \"NORMAL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/2/table",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"2",
+								"table"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get tables by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTczOTE5NTMsImlhdCI6MTcxNzM5MTY1MywianRpIjoiYTg4OGU0MTUtYTEwMS00NDU4LTg5MWMtZDA0YTY4NGZhY2ZlIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImFmNmFhZTY1LTk4OTItNDMzMC04NjUxLTVmZTM2NGY3NjRkYiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiIyZjMxNzExOS05MDJkLTRjNWQtYWRlNC00Mzk4ZmRjNDRmMDEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiIyZjMxNzExOS05MDJkLTRjNWQtYWRlNC00Mzk4ZmRjNDRmMDEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.MUU7_pTLc6JK2HAdEB_N0pWS9Dok4qqCNOd_m4RyY9Bv61i1XWFk1XjL_au_ObdP8uzrYE2Sps1IZNO6tHld-67PzkW_KONAp2Px58cqm_k8FEFIindbV_UC-QmYNaiGHeP9RkYd6bVziBL-E5tIO1nRrdVfGb5c1nzRPxEXjKLgkpHcYxIzAK64Cp_yY3K8DVRmzzX1Fcr6ASg7ZAJORsKy0pmsB7NtfU_rEPSigHKz-cPNa42mWWuy6LrmPnDOiPNn9O35NBMTW9OiK8xRutYe1vpwhH0DyXqiXvxKpR29P78NGp37uqd-vG9pYO-RoHliPPFp-zIg62ZUFrvHiw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/2/table",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"2",
+								"table"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get table by id and by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzdV9qTnh1bUJaTGhqNXpzLU1aOGNVaXlZS1pmc0xldTVBRVJNQzluTHRjIn0.eyJleHAiOjE3MTY3Mjg0MTksImlhdCI6MTcxNjcyODExOSwianRpIjoiNTAyMTAxYmItZDRiMC00ZjljLWIwMTMtNmFkNjA4MjRmMzQ4IiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjIwODczYmZkLTQ4MWItNGU1ZC1hYWI5LWRlNjAyNjM0MjkxYyIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJhMmJjYmE0OS02ZjdlLTQyMWYtOGIyZi00M2U4NGVjNTk0MTQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJhMmJjYmE0OS02ZjdlLTQyMWYtOGIyZi00M2U4NGVjNTk0MTQiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluX3BfYSJ9.AjYk7Nyx2gVN_vbchtqiQTxEauo5VkhJ5ZlCdbKjHnNIs1w53Lt3pmvjYlA5qBFte_V5fh1how0L_q826QtYjOJkr55u7s8jGLoiAfz_hhSllx2n5PTEc21jpBTOqgUhSJHXUdvoXLY7_1V0iSIW3bsC6ZzcWJ7MyWEY-FL4sU4FhI5d0UCAALzrI9wwJBB5xEPVymbNrU-wb1VNuak2cBU-lWUVl8M6CG4ktOCiZykvDmaW_8Mhhzq16rKj8EZt3ztW1-6svFhufAUswHVs_EiX-xhKg1cG1K761dCKPvIvxKj85zA92zNi74Yi4tEzkMn33vckv0gjyJrgFGUt2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/1/table/2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"1",
+								"table",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update table ",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTczOTE5NTMsImlhdCI6MTcxNzM5MTY1MywianRpIjoiYTg4OGU0MTUtYTEwMS00NDU4LTg5MWMtZDA0YTY4NGZhY2ZlIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImFmNmFhZTY1LTk4OTItNDMzMC04NjUxLTVmZTM2NGY3NjRkYiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiIyZjMxNzExOS05MDJkLTRjNWQtYWRlNC00Mzk4ZmRjNDRmMDEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiIyZjMxNzExOS05MDJkLTRjNWQtYWRlNC00Mzk4ZmRjNDRmMDEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.MUU7_pTLc6JK2HAdEB_N0pWS9Dok4qqCNOd_m4RyY9Bv61i1XWFk1XjL_au_ObdP8uzrYE2Sps1IZNO6tHld-67PzkW_KONAp2Px58cqm_k8FEFIindbV_UC-QmYNaiGHeP9RkYd6bVziBL-E5tIO1nRrdVfGb5c1nzRPxEXjKLgkpHcYxIzAK64Cp_yY3K8DVRmzzX1Fcr6ASg7ZAJORsKy0pmsB7NtfU_rEPSigHKz-cPNa42mWWuy6LrmPnDOiPNn9O35NBMTW9OiK8xRutYe1vpwhH0DyXqiXvxKpR29P78NGp37uqd-vG9pYO-RoHliPPFp-zIg62ZUFrvHiw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"number\": 1,\r\n    \"seatsNumber\": 4,\r\n    \"state\": \"BROKEN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/2/table/5",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"2",
+								"table",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete table by id and by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTczMTExMDYsImlhdCI6MTcxNzMxMDgwNiwianRpIjoiYWQ0NzQ1ZWQtNzJkMy00NDI2LTkwMjAtZjE1NGQzOGUzZjNmIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjQ2ODU2Yjc3LWMxYTQtNDU5Ni04NjYyLTE0NDI2NDMxOTEyMiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJlZTc3Mjk3MS04YWI4LTRhNDUtODAwNy1iNmJiMGEyNTczODYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJlZTc3Mjk3MS04YWI4LTRhNDUtODAwNy1iNmJiMGEyNTczODYiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.KVJJbUAg4JGVBMJ80m-cP_w2bFYo1QTWeBm-mBHCymyOMtMCjmrWFHE6SL7BlM-zPk6veEjrQCXvfSSdbrkTSG1N6CI0Gm-dlAJamD8r8gfy8EnfP7DS1jphC3NSMn1Bgwa-GghAO_03nW4QnY90KkzYvQoN3fSc6w2RyjFt9szboejuCys-9_d7NQ_5eo82U0rZJZ4EOYpIQssQAAlTrR7OXySmKyTo0aomqAtT4bJXLWcV5gwma9fvwZhmfTReKOhk7e9Es7m0Q3s8cvmn3rWX1ABI6VeIML4ii6dS8gYzvBR578XzMyw1ROvZrlePyMGFielDdUn-mp8sGG-QoQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/1/table/2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"1",
+								"table",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservation",
+			"item": [
+				{
+					"name": "Create reservation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var moment = require('moment');\r",
+									"pm.globals.set('CurrentDatetime', moment().format());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTczOTYwNDgsImlhdCI6MTcxNzM5NTc0OCwianRpIjoiMGZkMGUxYmQtM2NlYy00MzU2LThjNzgtOGVmMGQzNWI2Yzc0IiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImFmNmFhZTY1LTk4OTItNDMzMC04NjUxLTVmZTM2NGY3NjRkYiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJhNGFiM2FjNy0yNTE0LTQ1NzUtYWI5Zi0yYWVkYjJmMmI1ZDEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJhNGFiM2FjNy0yNTE0LTQ1NzUtYWI5Zi0yYWVkYjJmMmI1ZDEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.VKubxZsubCaa7N20R0hhDHEbusVlM2Uu1QHYR_NPE0Mu-7ghtvqghST36KHB0h5HvcSQApEI7tJvlnHht28cfp8gCAniznMw9zw4xO2W23wIlfTLSGritcYUo3CdIHGAFJ1C20LVXw48iiAG27ndm3k-sqRySsvxtyb-1IxgIwl63EtrisiQlBH14Wc6XQdYbu5-9YooGwvo0MzQx4k53PaSKiGg6qHgg8cM2N3vs3Dtq793AVnE2qmPJZNwZhwYc0RVcfvTFdpUDNMIwZBsEqcvQHxk8y1ljgN6GamnZe5NEoybiLnLxKXT1aH5VZVT_VNgvXKfpqyTooCSO4m1Iw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"personsNumber\": 3,\r\n    \"clientPhoneNumber\": \"+79040953371\",\r\n    \"clientName\": \"Павел\",\r\n    \"startDateTime\": \"{{CurrentDatetime}}\",\r\n    \"durationIntervalMinutes\": 45,\r\n    \"employeeFullName\": \"Фролов Макар\",\r\n    \"tableIds\": [\r\n        5\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCALHOST}}/restobook-api/restaurant/2/reservation",
+							"host": [
+								"{{LOCALHOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"2",
+								"reservation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update reservation by id and by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTczOTYwNDgsImlhdCI6MTcxNzM5NTc0OCwianRpIjoiMGZkMGUxYmQtM2NlYy00MzU2LThjNzgtOGVmMGQzNWI2Yzc0IiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImFmNmFhZTY1LTk4OTItNDMzMC04NjUxLTVmZTM2NGY3NjRkYiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJhNGFiM2FjNy0yNTE0LTQ1NzUtYWI5Zi0yYWVkYjJmMmI1ZDEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJhNGFiM2FjNy0yNTE0LTQ1NzUtYWI5Zi0yYWVkYjJmMmI1ZDEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.VKubxZsubCaa7N20R0hhDHEbusVlM2Uu1QHYR_NPE0Mu-7ghtvqghST36KHB0h5HvcSQApEI7tJvlnHht28cfp8gCAniznMw9zw4xO2W23wIlfTLSGritcYUo3CdIHGAFJ1C20LVXw48iiAG27ndm3k-sqRySsvxtyb-1IxgIwl63EtrisiQlBH14Wc6XQdYbu5-9YooGwvo0MzQx4k53PaSKiGg6qHgg8cM2N3vs3Dtq793AVnE2qmPJZNwZhwYc0RVcfvTFdpUDNMIwZBsEqcvQHxk8y1ljgN6GamnZe5NEoybiLnLxKXT1aH5VZVT_VNgvXKfpqyTooCSO4m1Iw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"personsNumber\": 3,\r\n    \"clientPhoneNumber\": \"+79040953371\",\r\n    \"clientName\": \"Павел\",\r\n    \"startDateTime\": \"2024-06-03T05:23:00Z\",\r\n    \"durationIntervalMinutes\": 45,\r\n    \"employeeFullName\": \"Фролов Макар\",\r\n    \"creatingDateTime\": \"2024-06-03T05:23:01.991595461Z\",\r\n    \"state\": \"WAITING\",\r\n    \"comment\": null,\r\n    \"restaurantId\": 2,\r\n    \"tableIds\": [\r\n        4\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/2/reservation/4",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"2",
+								"reservation",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get reservation by id and by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTcyNTE4OTEsImlhdCI6MTcxNzI1MTU5MSwianRpIjoiNjAzNmU0MjQtZGQ2ZS00YWQ1LTk3ZWQtZjk3NGE3ZjdkZWYwIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjQ2ODU2Yjc3LWMxYTQtNDU5Ni04NjYyLTE0NDI2NDMxOTEyMiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiI4NjIxZjc4Ny1kMzViLTRmNTEtYTEyNi04Y2E3ZmQ5NjBjYmQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiI4NjIxZjc4Ny1kMzViLTRmNTEtYTEyNi04Y2E3ZmQ5NjBjYmQiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.FB-h_eIp5FdZvFfBhj21zDya84ukVsttFjShUP6a85mcxwPLWMWs0qbeR4v6nu2jTw2i_eQbvTZj9zb1yMRXKoKjneq6M9t8gPTOIp7QZ-EfCfxfdSvLLlhEhCQ90ociiZNF37llAboAvdCnJAmV878m4fsSHrD_dabz-gyE1cvR4zHFCE3nfFRlGD4kPq_ffk_Klux4ubyudSl_C-t5EQxfbBnkA94iiCM0lkgfrBAzeeQlH4Cml-BKgzPDuyAoM2lk4dsIeXX6w2vCl6W6rSFF0SilHFc3n8IcG__WYyxHkF9g1bvDJ4spMiol1UGtLELXtkOirtj6uVyH2FAwww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/1/reservation/2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"1",
+								"reservation",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get reservations by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTcyNTE4OTEsImlhdCI6MTcxNzI1MTU5MSwianRpIjoiNjAzNmU0MjQtZGQ2ZS00YWQ1LTk3ZWQtZjk3NGE3ZjdkZWYwIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjQ2ODU2Yjc3LWMxYTQtNDU5Ni04NjYyLTE0NDI2NDMxOTEyMiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiI4NjIxZjc4Ny1kMzViLTRmNTEtYTEyNi04Y2E3ZmQ5NjBjYmQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiI4NjIxZjc4Ny1kMzViLTRmNTEtYTEyNi04Y2E3ZmQ5NjBjYmQiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.FB-h_eIp5FdZvFfBhj21zDya84ukVsttFjShUP6a85mcxwPLWMWs0qbeR4v6nu2jTw2i_eQbvTZj9zb1yMRXKoKjneq6M9t8gPTOIp7QZ-EfCfxfdSvLLlhEhCQ90ociiZNF37llAboAvdCnJAmV878m4fsSHrD_dabz-gyE1cvR4zHFCE3nfFRlGD4kPq_ffk_Klux4ubyudSl_C-t5EQxfbBnkA94iiCM0lkgfrBAzeeQlH4Cml-BKgzPDuyAoM2lk4dsIeXX6w2vCl6W6rSFF0SilHFc3n8IcG__WYyxHkF9g1bvDJ4spMiol1UGtLELXtkOirtj6uVyH2FAwww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/1/reservation",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"1",
+								"reservation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete reservation by id and by restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIwTzFYNm5kTzJZTDlPVWFzS3E3REJ2WktwZDdSdkVNelMxNnFGcHRRS2g0In0.eyJleHAiOjE3MTczMTExMDYsImlhdCI6MTcxNzMxMDgwNiwianRpIjoiYWQ0NzQ1ZWQtNzJkMy00NDI2LTkwMjAtZjE1NGQzOGUzZjNmIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjQ2ODU2Yjc3LWMxYTQtNDU5Ni04NjYyLTE0NDI2NDMxOTEyMiIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJlZTc3Mjk3MS04YWI4LTRhNDUtODAwNy1iNmJiMGEyNTczODYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJlZTc3Mjk3MS04YWI4LTRhNDUtODAwNy1iNmJiMGEyNTczODYiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluIn0.KVJJbUAg4JGVBMJ80m-cP_w2bFYo1QTWeBm-mBHCymyOMtMCjmrWFHE6SL7BlM-zPk6veEjrQCXvfSSdbrkTSG1N6CI0Gm-dlAJamD8r8gfy8EnfP7DS1jphC3NSMn1Bgwa-GghAO_03nW4QnY90KkzYvQoN3fSc6w2RyjFt9szboejuCys-9_d7NQ_5eo82U0rZJZ4EOYpIQssQAAlTrR7OXySmKyTo0aomqAtT4bJXLWcV5gwma9fvwZhmfTReKOhk7e9Es7m0Q3s8cvmn3rWX1ABI6VeIML4ii6dS8gYzvBR578XzMyw1ROvZrlePyMGFielDdUn-mp8sGG-QoQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/1/reservation/3",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"1",
+								"reservation",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get reservations by Datetime and by restaurant Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzdV9qTnh1bUJaTGhqNXpzLU1aOGNVaXlZS1pmc0xldTVBRVJNQzluTHRjIn0.eyJleHAiOjE3MTY3ODAxMTAsImlhdCI6MTcxNjc3OTgxMCwianRpIjoiYjYyMTVmNzktNTA1Ny00Y2MyLTk5YmEtZGRhNDRkN2NjNjQ2IiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjIwODczYmZkLTQ4MWItNGU1ZC1hYWI5LWRlNjAyNjM0MjkxYyIsInR5cCI6IkJlYXJlciIsImF6cCI6InJlc3RvYm9vay1yZXN0LWFwaSIsInNlc3Npb25fc3RhdGUiOiJjMGRjZmFiZC0yYjUyLTQ2ZWEtYWQxZC1lZjY4OTg1YTE3NjIiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1yZXN0YXVyYW50IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjMGRjZmFiZC0yYjUyLTQ2ZWEtYWQxZC1lZjY4OTg1YTE3NjIiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InB1dGluX3BfYSJ9.WhsPoUdUztyyRn__b5rprINleF0XAMawciB7ArUdXVQcnNz5dCVembF_AtiArKuW8akhH58N__oGwLA8QUAABUvOyyLeieDXg4uwicGPcwf978arGDQcYsHZJeSM982bVfoLvz0jKDXdlNKMmdhMk3yrzJF5i0hugUtTl7np2ZjMHncBv9Lt6tEpcuNtRfOlhbfXJDZyS178WbVXfLAXu9kYUIYdr-XDDrLUxHjKklD5Avldfk68NmyluFCajxwA0GpAW4hRt-NsjkTQjsRR4doxrtCm5om8yKCWmPfxXYuaEpm5DpM_Y2VjJAsXR6N6O7eP3FFET19-EanWxHTEOw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/restobook-api/restaurant/1/reservation?dateTime=2024-05-27T04:20:12.410408Z",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"restobook-api",
+								"restaurant",
+								"1",
+								"reservation"
+							],
+							"query": [
+								{
+									"key": "dateTime",
+									"value": "2024-05-27T04:20:12.410408Z"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzdV9qTnh1bUJaTGhqNXpzLU1aOGNVaXlZS1pmc0xldTVBRVJNQzluTHRjIn0.eyJleHAiOjE3MTY3MTA0MDgsImlhdCI6MTcxNjcxMDEwOCwianRpIjoiNWNkZjI1ZTgtMDZhOS00YTRhLTk0ZjYtZGZjNjg3NWI0YTViIiwiaXNzIjoiaHR0cHM6Ly9yZXN0b2Jvb2suZnVuL3JlYWxtcy9yZXN0YXVyYW50IiwiYXVkIjpbInJlYWxtLW1hbmFnZW1lbnQiLCJiYWNrZW5kIiwiYnJva2VyIiwiYWNjb3VudCJdLCJzdWIiOiJhNzE2ZmJkYy1iYzNhLTRhYmEtYmE5Ny05MTI0YzRlZmJjNDMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJyZXN0b2Jvb2stcmVzdC1hcGkiLCJzZXNzaW9uX3N0YXRlIjoiMjE2MmRlZWQtMTc0Ny00ZmVhLTliNzQtOWRmMzhmMTY5OTFjIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcmVzdGF1cmFudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsicmVhbG0tbWFuYWdlbWVudCI6eyJyb2xlcyI6WyJ2aWV3LWlkZW50aXR5LXByb3ZpZGVycyIsInZpZXctcmVhbG0iLCJtYW5hZ2UtaWRlbnRpdHktcHJvdmlkZXJzIiwiaW1wZXJzb25hdGlvbiIsInJlYWxtLWFkbWluIiwiY3JlYXRlLWNsaWVudCIsIm1hbmFnZS11c2VycyIsInF1ZXJ5LXJlYWxtcyIsInZpZXctYXV0aG9yaXphdGlvbiIsInF1ZXJ5LWNsaWVudHMiLCJxdWVyeS11c2VycyIsIm1hbmFnZS1ldmVudHMiLCJtYW5hZ2UtcmVhbG0iLCJ2aWV3LWV2ZW50cyIsInZpZXctdXNlcnMiLCJ2aWV3LWNsaWVudHMiLCJtYW5hZ2UtYXV0aG9yaXphdGlvbiIsIm1hbmFnZS1jbGllbnRzIiwicXVlcnktZ3JvdXBzIl19LCJyZXN0b2Jvb2stcmVzdC1hcGkiOnsicm9sZXMiOlsicmVzdG9ib29rX2FkbWluIiwidmVuZG9yX2FkbWluIiwicmVzdG9ib29rX3VzZXIiXX0sImJhY2tlbmQiOnsicm9sZXMiOlsidW1hX3Byb3RlY3Rpb24iXX0sImJyb2tlciI6eyJyb2xlcyI6WyJyZWFkLXRva2VuIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50Iiwidmlldy1hcHBsaWNhdGlvbnMiLCJ2aWV3LWNvbnNlbnQiLCJ2aWV3LWdyb3VwcyIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwiZGVsZXRlLWFjY291bnQiLCJtYW5hZ2UtY29uc2VudCIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6IjIxNjJkZWVkLTE3NDctNGZlYS05Yjc0LTlkZjM4ZjE2OTkxYyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoidmVuZG9yX2FkbWluIn0.YVCGSTm5WpIdLSymC0OoZFwPCe082hz_l69NHN0Uea3z7ZTknGP3N8JNAW_JGkyPQy-tgshR0hnGA4GBxaO4WCHKy3c_QLEwIMJ4wyMlGUWU1VrwLqqWOAR6Lxyv-8H-e5i1wSLRO4xLJWvIQMfR-3RAJsWzA_foKzZMipe3lG6SIfDvK4UfTlZYnoUUhv5uiOy6kFWEi91tPiShR1xKKWLqM8D_Vcsihg0tbUDPpcObm8tsEGy4oi4gdrn0TyLb5-Y8jPICJ2g4YpQ2DiwA9SUfvUW7jDS15cUZgNMVBw5hI4peqqYFdtmQTBOZ9Ave4Fv1zXhDHd1x7HytfnSUEw",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
